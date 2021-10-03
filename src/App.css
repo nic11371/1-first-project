@@ -13,29 +13,4 @@
 	
 }
 
-.header {
-	grid-area: header;
-	background: blue;
-}
-.header img {
-	width: 5%;
-}
 
-.nav {
-	grid-area: nav;
-	background: rgba(84, 18, 192, 0.938);
-}
-
-.nav a{
-	color: white
-}
-
-.profile {
-	grid-area: profile;
-	background: rgb(35, 150, 121);
-}
-
-.profile img{
-	
-	width: 30%
-}
