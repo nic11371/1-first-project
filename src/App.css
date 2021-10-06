@@ -4,13 +4,17 @@
 	width: 90%;
 	grid-template-areas: 
 	"header header" 
-	"nav profile";
+	"nav content";
 
-	grid-template-rows: 15% 1fr;
-	grid-template-columns: 1.5fr 10fr;
+	grid-template-rows: 0.3fr 1fr;
+	grid-template-columns: 2fr 10fr;
 	grid-gap: 10px;
 
 	
+}
+.app-wrapper-content{
+	grid-area: content;
+	background: rgb(35, 150, 121);
 }
 
 

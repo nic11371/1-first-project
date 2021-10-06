@@ -1,0 +1,14 @@
+
+.item img{ 
+	border-radius:30px; 
+	width: 5%; 
+	height: 5%; 
+	-webkit-border-radius:30px; 
+	-moz-border-radius:30px; 
+	-ms-border-radius:30px; 
+	-o-border-radius:30px;
+}
+
+.item {
+	color:rgb(142, 150, 35)
+}
