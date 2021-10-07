@@ -4,10 +4,11 @@ import classes from "./Dialogs.module.css"
 
 const Dialogs = () => {
 	return (
-		<div>
-			Dialogs
+		<div className={classes.dialogs}>
+			<div>
+				Dialogs
+			</div>
 		</div>
-
 	)
 }
 

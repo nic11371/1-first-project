@@ -3,9 +3,11 @@
 	background: rgba(84, 18, 192, 0.938);
 }
 
-.item {
+.item a{
 	color: white;
+	text-decoration: none;
 }
-.item.active {
+.item a.activeLink {
 	color: gold;
 }
+
