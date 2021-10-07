@@ -1,9 +1,18 @@
 
-.profile img{
+.MyPosts img{
 	
 	width: 30%
 }
 
 .item {
 	color:rgb(142, 150, 35)
+}
+
+.MyPostsBlock {
+	padding: 2%;
+}
+
+.MyPosts{
+	margin-top: 1%;
+	margin-left: 2%;
 }
