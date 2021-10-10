@@ -1,0 +1,17 @@
+.message img{
+	width: 10px;
+}
+
+.message{
+	padding:10px;
+
+}
+
+.message:nth-child(even){
+text-align: end;
+}
+
+.message:nth-child(odd){
+	text-align: start;
+	
+	}
