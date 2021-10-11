@@ -1,3 +1,5 @@
+
+
 let state = {
 	dialogsPage: {
 		dialogs: [
@@ -13,10 +15,10 @@ let state = {
 	},
 	profilePage: {
 		posts: [
-			{message: "Hi, do you do", count: 422},
-			{message: "My name is Nikolay", count: 35},
-			{message: "", count: 0},
-			{message: "", count: 68},{message: "", count: 4},
+			{id: 1, message: "Hi, do you do", count: 422},
+			{id: 2, message: "My name is Nikolay", count: 35},
+			{id: 3, message: "", count: 0},
+			{id: 4, message: "", count: 68},{message: "", count: 4},
 		],
 	},
 	sidebar: {
@@ -31,6 +33,17 @@ let state = {
 	}
 	
 
+}
+
+export let addPost = (postMessage) => {
+	
+	let newPost = {
+		id: 5,
+		 message: postMessage,
+		 count: 0
+	}
+	
+	state.profilePage.posts.push(newPost);
 }
 
 export default state;

@@ -7,7 +7,6 @@
 	padding: 5%;
 }
 
-
 .DialogsItems .active{
 	color: gold;
 }
@@ -17,4 +16,11 @@
 
 .messages .message {
 	
+}
+
+.button{
+	display: inline-block;
+	width: 30%;
+	height: 50%;
+	vertical-align: bottom;
 }
