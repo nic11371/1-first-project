@@ -5,14 +5,20 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
+const addPost = "ADD-POST";
+const updateNewPostText = "UPDATE-NEW-POST-TEXT";
+const addMessage = "ADD-MESSAGE";
+const updateMessageText = "UPDATE-MESSAGE-TEXT";
+
 	let rerenderEntireTree = (state) => {
 	ReactDOM.render(
 		<BrowserRouter>
 			<App state={store.getState()}
-			addPost={store.addPost.bind(store)}
-				updateNewPostText={store.updateNewPostText.bind(store)}
-				addMessage={store.addMessage.bind(store)}
-				updateMessageText={store.updateMessageText.bind(store)}	
+			dispatch={store.dispatch.bind(store)}
+			// addPost={store.addPost.bind(store)}
+			// 	updateNewPostText={store.updateNewPostText.bind(store)}
+			// 	addMessage={store.addMessage.bind(store)}
+			// 	updateMessageText={store.updateMessageText.bind(store)}	
 				/>
 		</BrowserRouter>,
 		document.getElementById('root')

@@ -2,18 +2,21 @@ import React from 'react'
 import classes from "./MyPosts.module.css"
 import Post from "./Post/Post"
 
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 const MyPosts = (props) => {
 
 	let post = props.posts.map(p => <Post message={p.message} count={p.count} />)
 	let newPostElement = React.createRef();
 
 	let addPost = () => {
-		props.addPost();
+		props.dispatch({type: ADD_POST});
 	}
 
 	let onPostChange = () => {
 		let text = newPostElement.current.value;
-		props.updateNewPostText(text)
+		props.dispatch({type: UPDATE_NEW_POST_TEXT, newText: text})
 	}
 
 	return (

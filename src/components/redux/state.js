@@ -1,6 +1,4 @@
 let store = {
-	_rerenderEntireTree() { },
-
 	_state: {
 		dialogsPage: {
 			dialogs: [
@@ -38,39 +36,40 @@ let store = {
 		},
 
 	},
-	addMessage() {
-		let newMessage = {
-			message: this._state.dialogsPage.newMessageText,
-		}
-		this._state.dialogsPage.messages.push(newMessage);
-		this._state.dialogsPage.newMessageText = "";
-		this._rerenderEntireTree(this._state);
-	},
-	updateMessageText(newTextMessage) {
-		this._state.dialogsPage.newMessageText = newTextMessage;
-		this._rerenderEntireTree(this._state);
-	},
-	addPost() {
-			let newPost = {
-			id: 5,
-			message: this._state.profilePage.newPostText,
-			count: 0
-		}
-		this._state.profilePage.posts.push(newPost);
-		this._state.profilePage.newPostText = "";
-		this._rerenderEntireTree(this._state);
-	},
-	updateNewPostText(newText) {
-	
-		this._state.profilePage.newPostText = newText;
-		this._rerenderEntireTree(this._state);
-	},
+	_callSubscriber() { },
 	getState() {
 		return this._state;
 	},
-	
-	subscribe(observe) {
-		this._rerenderEntireTree = observe;
+		subscribe(observe) {
+		this._callSubscriber = observe;
+	},
+	dispatch(action) {
+		if(action.type === "ADD-POST") {
+			let newPost = {
+				id: 5,
+				message: this._state.profilePage.newPostText,
+				count: 0
+			}
+			this._state.profilePage.posts.push(newPost);
+			this._state.profilePage.newPostText = "";
+			this._callSubscriber(this._state);
+		}
+		else if(action.type === "UPDATE-NEW-POST-TEXT") {
+			this._state.profilePage.newPostText = action.newText;
+			this._callSubscriber(this._state);
+		}
+		else if (action.type === "ADD-MESSAGE") {
+			let newMessage = {
+				message: this._state.dialogsPage.newMessageText,
+			}
+			this._state.dialogsPage.messages.push(newMessage);
+			this._state.dialogsPage.newMessageText = "";
+			this._callSubscriber(this._state);
+		}
+		else if(action.type === "UPDATE-MESSAGE-TEXT") {
+			this._state.dialogsPage.newMessageText = action.newTextMessage;
+			this._callSubscriber(this._state);
+		}
 	}
 }
 export default store;

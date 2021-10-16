@@ -3,16 +3,19 @@ import classes from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem"
 import Messages from "./Message/Messages"
 
+const ADD_MESSAGE = "ADD-MESSAGE";
+const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT";
+
 const Dialogs = (props) => {
 	let newElement = React.createRef();
 	
 	let addMessage = () => {
-		props.addMessage();
+		props.dispatch({type: ADD_MESSAGE});
 	}
 
 	let onChangeMessage = () => {
 		let message = newElement.current.value;
-		props.updateMessageText(message);
+		props.dispatch({type: UPDATE_MESSAGE_TEXT, newTextMessage:message });
 	}
 
 	return (
