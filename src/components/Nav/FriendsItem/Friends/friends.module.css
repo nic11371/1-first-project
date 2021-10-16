@@ -1,11 +1,11 @@
-.sidebar{
+.friends{
 	padding:40px 0px 0px 5px;
 	font-size: 10px;
 	position: relative;
 	display: inline-block;
 }
 
-.sidebar img{
+.friends img{
 	width: 20px;
 	position: absolute;
 	bottom: 15px;
