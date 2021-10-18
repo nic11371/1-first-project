@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import classes from './Nav.module.css'
-import FriendsItem from "./FriendsItem/friendsItem"
+import FriendItemContainer from './FriendsItem/friendsItemContainer'
 
 const Nav = (props) => {
 
@@ -27,7 +27,7 @@ const Nav = (props) => {
 				className={classes.friends}>Friends  </NavLink>
 			</div>
 			<div className={classes.item}>
-				<FriendsItem state={props.state} />
+				<FriendItemContainer />
 			</div>
 		</nav>
 	)
