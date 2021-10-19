@@ -6,7 +6,7 @@ const FriendsItem = (props) => {
 
 	return (
 		<div className={classes.friendsItem}>{props.sidebar.friends.map(f => 
-		<Friends name={f.name} />)} </div>
+		<Friends name={f.name} key={f.id} />)} </div>
 	)
 }
 
