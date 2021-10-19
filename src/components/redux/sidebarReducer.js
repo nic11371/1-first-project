@@ -11,9 +11,9 @@ const initialState = {
 
 
 const sidebarReducer = (state = initialState, action) => {
-
-
-	return state;
+let copyState = {...state}
+copyState.friends = [...state.friends]
+	return copyState;
 }
 
 export default sidebarReducer;
