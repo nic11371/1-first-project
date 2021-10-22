@@ -29,6 +29,9 @@ const Nav = (props) => {
 			<div className={classes.item}>
 				<FriendItemContainer />
 			</div>
+			<div className={classes.item}>
+				<NavLink to="/users" activeClassName={classes.activeLink}>Users</NavLink>
+			</div>
 		</nav>
 	)
 }
