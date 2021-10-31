@@ -6,9 +6,9 @@ const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
 
 const initialState = {
 	users: [],
-	pageSize: 30,
+	pageSize: 15,
 	totalUsersCount: 0,
-	currentPage: 1
+	currentPage: 2
 };
 
 const usersReducer = (state = initialState, action) => {
