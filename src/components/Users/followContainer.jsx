@@ -1,7 +1,8 @@
 import react from "React"
-import { usersAPI } from "../../api/api"
+import { usersAPI } from "../../api/api";
 
-export const unfollow = (props) => {
+
+export const unfollowContainer = (props) => {
 	return usersAPI.unfollow(props.userId)
 	.then(response => {
 		
@@ -11,7 +12,7 @@ export const unfollow = (props) => {
 	})
 }
 
-export const follow = (props) => {
+export const followContainer = (props) => {
 	return usersAPI.follow(props.userId)
 	.then(response => {
 		

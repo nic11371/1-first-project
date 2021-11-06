@@ -7,13 +7,12 @@ import Header from './Header'
 class HeaderContainer extends React.Component {
 	componentDidMount() {
 		authAPI.getAuth().then(response => {
-				if(response.data.resultCode === 0 ) {
-					let {id, email, login} = response.data.data
+				if(response.resultCode === 0 ) {
+					let {id, email, login} = response.data
 					this.props.setAuthUserData(id, email, login);
 					
 				}			
 			})
-			
 	}
 
 	render() {

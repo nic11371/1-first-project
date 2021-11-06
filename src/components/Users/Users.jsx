@@ -31,27 +31,28 @@ const Users = (props) => {
 						</NavLink>
 					</div>
 					<div>Followed
-						{u.followed ? <button onClick={() => {
-
-								usersAPI.unfollow(u.id)
+						{u.followed ? <button disabled={props.followInProgress.some(id => id === u.id)} 
+						onClick={() => {
+							props.toggleFollowInProgress(true, u.id)
+							usersAPI.unfollow(u.id)
 								.then(response => {
-									
 								if (response.resultCode === 0) {
 										props.unfollowed(u.id)
 									}
+									props.toggleFollowInProgress(false, u.id)
 								})
-
-
+								
 						}} > Unfollow </button>
-							: <button onClick={() => {
-
+							: <button disabled={props.followInProgress.some(id => id === u.id)}
+							onClick={() => {
+								props.toggleFollowInProgress(true, u.id)
 								usersAPI.follow(u.id).then(response => {
 										if (response.resultCode === 0) {
 											props.followed(u.id)
 										}
+										props.toggleFollowInProgress(false, u.id)
 									})
-									
-									
+								
 							}}>Follow</button>}
 					</div>
 					<div>{u.status}</div>
