@@ -1,21 +1,13 @@
 import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import {setUserProfile} from '../../redux/profileReducer'
+import {getProfileThunkCreator} from '../../redux/profileReducer'
 import { withRouter } from 'react-router';
-import { profileAPI } from '../../api/api';
 
 class ProfileContainer extends React.Component {
 
 	componentDidMount() {
-		
-		let userId = this.props.match.params.userId;
-		if(!userId) {
-			userId = 20577;
-		}
-		profileAPI.getProfile(userId).then(response => {
-				this.props.setUserProfile(response);
-			})
+		this.props.getProfileThunkCreator(this.props.match.params.userId)
 	}
 
 	render() {
@@ -27,9 +19,9 @@ class ProfileContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	profile: state.profilePage.profile
+	profile: state.profilePage.profile,
 })
 
 const WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent)
+export default connect(mapStateToProps, {getProfileThunkCreator})(WithUrlDataContainerComponent)

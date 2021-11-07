@@ -2,6 +2,7 @@ import React from 'react'
 import Preloader from '../../Common/Preloader/preloader'
 import classes from "./ProfileInfo.module.css"
 import ProfileSocial from './ProfileSocial'
+import userPhoto from "./../../../assets/img/1.png";
 
 const ProfileInfo = (props) => {
 	if(!props.profile) {
@@ -15,7 +16,8 @@ const ProfileInfo = (props) => {
 			</div>
 			<div className={classes.descriptionBlock}>
 			<div>{props.profile.fullName}</div>
-			<img src={props.profile.photos.large} alt="" />
+			<img src={props.profile.photos.large != null ?
+			 props.profile.photos.large : userPhoto} alt="" />
 			<div>{props.profile.lookingForAJob}</div>
 			<div>{props.profile.lookingForAJobDescription}</div>
 			<div><ProfileSocial profile={props.profile.contacts}/></div>
