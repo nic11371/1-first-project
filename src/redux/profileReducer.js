@@ -37,7 +37,7 @@ const profileReducer = (state = initialState, action) => {
 			}
 		case SET_STATUS:
 			return {
-				...state, profile: action.status
+				...state, status: action.status
 			}
 	
 		default:
@@ -67,6 +67,7 @@ export const getProfileThunkCreator = (userId) => (dispatch) => {
 export const getUserStatusThunkCreator = (userId) => (dispatch) => {
 	profileAPI.getStatus(userId)
 		.then(response => {
+			debugger
 			dispatch(setStatus(response.data))
 		});
 }
@@ -75,7 +76,7 @@ export const updateStatusThunkCreator = (status) => (dispatch) => {
 	profileAPI.updateStatus(status)
 		.then(response => {
 			if (response.data.resultCode === 0) {
-				dispatch(setStatus(response.data))
+				dispatch(setStatus(status))
 			}
 		});
 }

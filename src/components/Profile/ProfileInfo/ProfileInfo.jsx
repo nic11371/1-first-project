@@ -9,7 +9,7 @@ const ProfileInfo = (props) => {
 	if(!props.profile) {
 		return <Preloader />
 	}
-	debugger
+
 	return (
 		<div className={classes.ProfileInfo}>
 			{/* <div>
@@ -20,7 +20,7 @@ const ProfileInfo = (props) => {
 			<div>{props.profile.fullName}</div>
 			<img src={props.profile.photos.large != null ?
 			 props.profile.photos.large : userPhoto} alt="" />
-			 <ProfileStatus status={props.status} />
+			 <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
 			<div>{props.profile.lookingForAJob}</div>
 			<div>{props.profile.lookingForAJobDescription}</div>
 			<div><ProfileSocial profile={props.profile.contacts}/></div>

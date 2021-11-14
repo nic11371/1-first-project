@@ -18,7 +18,7 @@ class ProfileContainer extends React.Component {
 	render() {
 		return (
 			<Profile {...this.props} profile={this.props.profile} status={this.props.status}
-			updateStatus={this.props.updateStatus} />
+			updateStatus={this.props.updateStatusThunkCreator} />
 		)
 	}
 }
@@ -29,8 +29,10 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-	connect(mapStateToProps, {getProfileThunkCreator, getUserStatusThunkCreator, 
-		updateStatusThunkCreator}),
+	connect(mapStateToProps, {getProfileThunkCreator, 
+		getUserStatusThunkCreator, 
+		updateStatusThunkCreator
+	}),
 	withRouter,
 	withAuthRedirect
 )(ProfileContainer)
