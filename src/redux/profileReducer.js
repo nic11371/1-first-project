@@ -53,10 +53,6 @@ export const setStatus = (status) => ({ type: SET_STATUS, status })
 export default profileReducer;
 
 export const getProfileThunkCreator = (userId) => (dispatch) => {
-
-	if (!userId) {
-		userId = 20577
-	}
 	profileAPI.getProfile(userId)
 		.then(response => {
 			dispatch(setUserProfile(response));
@@ -67,7 +63,6 @@ export const getProfileThunkCreator = (userId) => (dispatch) => {
 export const getUserStatusThunkCreator = (userId) => (dispatch) => {
 	profileAPI.getStatus(userId)
 		.then(response => {
-			debugger
 			dispatch(setStatus(response.data))
 		});
 }
