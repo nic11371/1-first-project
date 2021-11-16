@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { authThunkCreator } from '../../redux/authReducer'
+import { authThunkCreator, logoutAuthThunkCreator } from '../../redux/authReducer'
 import { getProfileThunkCreator } from '../../redux/profileReducer'
 import Header from './Header'
 
@@ -20,4 +20,5 @@ const mapStateToProps = (state) => ({
 	
 })
 
-export default connect(mapStateToProps, {authThunkCreator, getProfileThunkCreator})(HeaderContainer)
+export default connect(mapStateToProps, {authThunkCreator, 
+	getProfileThunkCreator, logoutAuthThunkCreator})(HeaderContainer)
