@@ -2,35 +2,39 @@ import React from 'react'
 import classes from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem"
 import Messages from "./Message/Messages"
+import { Field, reduxForm } from 'redux-form'
+
+const DialogsForm = (props) => {
+	return (
+		<form onSubmit={props.handleSubmit}  >
+			<div> 
+				<Field name={"newMessageText"} component={"textarea"} type={"textarea"}
+					placeholder={"Input message"} />
+				<button className={classes.button}>Sent</button>
+			</div>
+			<div>
+			
+			</div>
+		</form>
+
+	)
+}
+
+const DialogsRedux = reduxForm({form: "message"})(DialogsForm)
 
 const Dialogs = (props) => {
-	let newElement = React.createRef();
-	
-	let state = props.dialogsPage;
 
-	let onAddMessage = () => {
-		props.addMessage();
-	}
-
-	let onChangeMessage = () => {
-		let message = newElement.current.value;
-		props.changeMessage(message);
+	const onSubmit = (values) => {
+		props.addMessage(values.newMessageText);
 	}
 
 	return (
 		<div className={classes.Dialogs}>
-			<div className={classes.DialogsItems}>
-				{state.dialogs.map( d => <DialogItem name={d.name} key={d.id} id={d.id} />)}	
-			</div>
-			<div className={classes.messages}>
-			{ state.messages.map( m => <Messages message={m.message} key={m.id} />)}
-			</div>
-			<textarea 
-			onChange={onChangeMessage} 
-			ref={newElement}
-			value={state.newMessageText} />
-		<button className={classes.button} onClick={onAddMessage}>Sent</button>
-		</div>
+		<div className={classes.DialogsItems}> {props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} />)}</div>
+		<div className={classes.messages}>{props.dialogsPage.messages.map(m => <Messages message={m.message} key={m.id} />)}</div>
+			<DialogsRedux onSubmit={onSubmit} />
+		</div>	
+				
 	)
 }
 

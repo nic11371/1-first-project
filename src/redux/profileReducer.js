@@ -1,9 +1,9 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const REMOVE_POST = "REMOVE_POST"
 
 const initialState = {
 	posts: [
@@ -12,7 +12,6 @@ const initialState = {
 		{ id: 3, message: "", count: 0 },
 		{ id: 4, message: "", count: 68 }, { message: "", count: 4 },
 	],
-	newPostText: "",
 	profile: null,
 	status: ""
 }
@@ -23,13 +22,12 @@ const profileReducer = (state = initialState, action) => {
 		case ADD_POST:
 			return {
 				...state,
-				posts: [...state.posts, { id: 6, message: state.newPostText, count: 0 }],
-				newPostText: ""
+				posts: [...state.posts, { id: 6, message: action.newPostText, count: 0 }],
 			}
-		case UPDATE_NEW_POST_TEXT:
+			case REMOVE_POST:
 			return {
 				...state,
-				newPostText: action.newText
+				posts: [...state.posts].pop()
 			}
 		case SET_USER_PROFILE:
 			return {
@@ -39,17 +37,15 @@ const profileReducer = (state = initialState, action) => {
 			return {
 				...state, status: action.status
 			}
-	
 		default:
 			return state;
 	}
 }
 
-export const addPostActionCreator = () => ({ type: ADD_POST })
-export const updateNewPostTextActionCreator = (text) =>
-	({ type: UPDATE_NEW_POST_TEXT, newText: text })
+export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostText })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
+export const removePostActionCreator = () => ({type: REMOVE_POST})
 export default profileReducer;
 
 export const getProfileThunkCreator = (userId) => (dispatch) => {
