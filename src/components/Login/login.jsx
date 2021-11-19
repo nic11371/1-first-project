@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { loginAuthThunkCreator, logoutAuthThunkCreator } from '../../redux/authReducer';
+import { maxLengthCreator, required } from '../../utilites/validation/validation';
+import { Input } from '../Common/FormsControls/FormsControls';
 
+const maxLengthLogin30 = maxLengthCreator(30);
+const maxLengthPassword15 = maxLengthCreator(15)
 const LoginForm = (props) => {
 	return (
 		<form onSubmit={props.handleSubmit}>
 			<div>
-				<Field placeholder={"Email"} name={"email"} component={"input"} type={"textarea"} />
+				<Field placeholder={"Email"} name={"email"} 
+				component={Input} type={"textarea"} validate={[required, maxLengthLogin30]} />
 			</div>
 			<div>
-				<Field placeholder={"Password"} name={"password"} component={"input"} type={"password"} />
+				<Field placeholder={"Password"} name={"password"} 
+				component={Input} type={"password"} validate={[required, maxLengthPassword15]} />
 			</div>
 			<div>
 				<Field name={"rememberMe"} component={"input"} type={"checkbox"} /> Remember me
@@ -34,7 +40,7 @@ const Login = (props) => {
 
 	if(props.isAuth) {
 		return <Redirect to={"/profile"} />
-	}
+	} 
 
 	return (
 		<div>

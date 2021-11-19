@@ -43,6 +43,8 @@ export const loginAuthThunkCreator = (email, password, rememberMe) => (dispatch)
 	.then(response => {
 		if(response.data.resultCode === 0 ) {
 			dispatch(authThunkCreator())
+		} else if(response.data.resultCode === 1) {
+			dispatch(setAuthUserData(null, null, null, false))
 		}			
 	})
 }
