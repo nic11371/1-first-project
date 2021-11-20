@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './FormsContols.module.css'
+import styles from './FormsControls.module.css'
 
 export const FormsControls = ({input, meta, children, ...props}) => {
 
@@ -15,9 +15,9 @@ export const FormsControls = ({input, meta, children, ...props}) => {
 }
 
 export const Textarea = (props) => {
-	return <FormsControls {...props} ><textarea /></FormsControls>
+	return <FormsControls {...props}><textarea /></FormsControls>
 }
 
 export const Input = (props) => {
-	return <FormsControls {...props} ><input /></FormsControls>
+	return <FormsControls {...props}><input /></FormsControls>
 }
