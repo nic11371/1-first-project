@@ -14,7 +14,8 @@ const initialState = {
 	totalUsersCount: 0,
 	currentPage: 1,
 	isFetching: false,
-	followInProgress: []
+	followInProgress: [],
+	fake: 10
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -72,7 +73,6 @@ export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, count: isFetching })
 export const toggleFollowInProgress = (isFetching, userId) => ({ type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userId })
 export default usersReducer;
-
 
 export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
 	dispatch(toggleIsFetching(true))

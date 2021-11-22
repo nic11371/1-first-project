@@ -16,6 +16,8 @@
     "redux": "^4.1.1",
     "redux-form": "^8.3.7",
     "redux-thunk": "^2.4.0",
+    "reselect": "^4.1.4",
+    "reselector": "^0.23.0",
     "web-vitals": "^1.1.2",
     "yarn": "^1.22.17"
   },

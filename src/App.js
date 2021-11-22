@@ -6,7 +6,7 @@ import './App.css';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Friends from "./components/Friends/Friends";
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginPage from './components/Login/login';
+import Login from './components/Login/login';
 import Music from "./components/Music/Music";
 import Nav from './components/Nav/Nav';
 import News from "./components/News/News";
@@ -40,7 +40,7 @@ class App extends React.Component {
 					<Route path='/settings' render={() => <Settings />} />
 					<Route path='/friends' render={() => <Friends />} />
 					<Route path='/users' render={() => <UsersContainer />} />
-					<Route path='/login' render={() => <LoginPage />} />
+					<Route path='/login' render={() => <Login />} />
 				</div>
 			</div>
 		</BrowserRouter>);

@@ -6,6 +6,8 @@ import Users from "./Users.jsx";
 import Preloader from "../Common/Preloader/preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import { getCurrentPage,  getFetching, getFollowInProgress,
+	 getPageSize, getTotalUsersCount, getUsers} from "./usersSelectors";
 
 class UsersContainer extends React.Component {
 
@@ -15,10 +17,10 @@ class UsersContainer extends React.Component {
 
 	onPageChanged = (pageNumber) => {
 		this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
-	
 	}
 
 	render() {
+		console.log("USERS")
 		return <>
 		{this.props.isFetching ? <Preloader /> : null }
 			<Users totalUsersCount={this.props.totalUsersCount}
@@ -35,14 +37,15 @@ class UsersContainer extends React.Component {
 	}
 }
 
+
 const mapStateToProps = (state) => {
 	return {
-		users: state.usersPage.users,
-		pageSize: state.usersPage.pageSize,
-		totalUsersCount: state.usersPage.totalUsersCount,
-		currentPage: state.usersPage.currentPage,
-		isFetching: state.usersPage.isFetching,
-		followInProgress: state.usersPage.followInProgress,
+		users: getUsers(state),
+		pageSize: getPageSize(state),
+		totalUsersCount: getTotalUsersCount(state),
+		currentPage: getCurrentPage(state),
+		isFetching: getFetching(state),
+		followInProgress: getFollowInProgress(state),
 	}
 }
 
