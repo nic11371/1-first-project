@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { loginAuthThunkCreator, logoutAuthThunkCreator } from '../../redux/authReducer';
 import { maxLengthCreator, required } from '../../utilites/validation/validation';
 import { Input } from '../Common/FormsControls/FormsControls';
+import { isAuth } from '../Profile/ProfileSelectors';
 import styles from './../Common/FormsControls/FormsControls.module.css'
 
 const maxLengthLogin30 = maxLengthCreator(30);
@@ -55,10 +56,10 @@ const Login = (props) => {
 	)
 }
 
-const mapDispatchToProps = (state) => ({
-	isAuth: state.auth.isAuth
+const mapStateToProps = (state) => ({
+	isAuth: isAuth(state)
 })
 
-export default connect(mapDispatchToProps,
+export default connect(mapStateToProps,
 	{ loginAuthThunkCreator, logoutAuthThunkCreator })(Login)
 

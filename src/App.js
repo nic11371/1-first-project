@@ -16,6 +16,7 @@ import UsersContainer from './components/Users/usersContainer';
 import { initializeAppThunkCreator } from './redux/appReducer';
 import { withRouter } from 'react-router';
 import Preloader from './components/Common/Preloader/preloader';
+import { initialized } from './AppSelectors';
 
 class App extends React.Component {
 	componentDidMount() {
@@ -49,7 +50,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	initialized: state.app.initialized
+	initialized: initialized(state)
 })
 
 export default compose(

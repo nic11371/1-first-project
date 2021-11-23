@@ -6,6 +6,7 @@ import {getProfileThunkCreator, getUserStatusThunkCreator,
 import { withRouter } from 'react-router';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { isAuth, profile, profileStatus, userId } from './ProfileSelectors';
 
 class ProfileContainer extends React.Component {
 
@@ -23,7 +24,6 @@ class ProfileContainer extends React.Component {
 	}
 
 	render() {
-		// console.log("Render profile")
 		return (
 			<Profile {...this.props} profile={this.props.profile} status={this.props.status}
 			updateStatus={this.props.updateStatusThunkCreator} />
@@ -32,12 +32,11 @@ class ProfileContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	// console.log("mapStateToProps Profile")
 	return({
-	profile: state.profilePage.profile,
-	status: state.profilePage.status,
-	isAuth: state.auth.isAuth,
-	autorizedUserId: state.auth.userId
+	profile: profile(state),
+	status: profileStatus(state),
+	isAuth: isAuth(state),
+	autorizedUserId: userId(state)
 })}
 
 export default compose(

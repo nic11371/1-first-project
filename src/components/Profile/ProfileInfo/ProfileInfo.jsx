@@ -3,7 +3,7 @@ import Preloader from '../../Common/Preloader/preloader'
 import classes from "./ProfileInfo.module.css"
 import ProfileSocial from './ProfileSocial'
 import userPhoto from "./../../../assets/img/1.png";
-import ProfileStatus from './ProfileStatus';
+import ProfileStatusHook from './ProfileStatusHook'
 
 const ProfileInfo = (props) => {
 	if(!props.profile) {
@@ -20,7 +20,7 @@ const ProfileInfo = (props) => {
 			<div>{props.profile.fullName}</div>
 			<img src={props.profile.photos.large != null ?
 			 props.profile.photos.large : userPhoto} alt="" />
-			 <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+			 <ProfileStatusHook status={props.status} updateStatus={props.updateStatus} />
 			<div>{props.profile.lookingForAJob}</div>
 			<div>{props.profile.lookingForAJobDescription}</div>
 			<div><ProfileSocial profile={props.profile.contacts}/></div>
