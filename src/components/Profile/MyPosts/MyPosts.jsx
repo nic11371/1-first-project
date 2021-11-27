@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { maxLengthCreator, required } from '../../../utilites/validation/validation'
 import { Textarea } from '../../Common/FormsControls/FormsControls'
@@ -28,22 +28,23 @@ export const PostForm = (props) => {
 
 const PostReduxForm = reduxForm({ form: "post"})(PostForm)
 
-const MyPosts = (props) => {
+class MyPosts extends PureComponent {
+  render() {
+	  
+    const onSubmit = values => {
+      this.props.addPost(values.newPostText);
+    };
 
-	const onSubmit = (values) => {
-		props.addPost(values.newPostText);
-	}
-
-	return ( 
-		<div className={classes.MyPosts}>
+    return (<div className={classes.MyPosts}>
 		<h2 className={classes.MyPostsBlock}>My Posts</h2>
 
 		<PostReduxForm onSubmit={onSubmit} />
 		<div>
-		{props.posts.map(p => <Post message={p.message} count={p.count} key={p.id} />)}
+		{this.props.posts.map(p => <Post message={p.message} count={p.count} key={p.id} />)}
 		</div>
-</div>
-	)
+    </div>);
+  }
+
 }
 
 export default MyPosts

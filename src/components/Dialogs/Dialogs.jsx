@@ -7,8 +7,7 @@ import { maxLengthCreator, required } from '../../utilites/validation/validation
 import { Textarea } from '../Common/FormsControls/FormsControls'
 
 const maxLength50 = maxLengthCreator(50)
-const DialogsForm = (props) => {
-	
+const DialogsForm = React.memo((props) => {
 	return (
 		<form onSubmit={props.handleSubmit}  >
 			<div> 
@@ -22,7 +21,7 @@ const DialogsForm = (props) => {
 		</form>
 
 	)
-}
+});
 
 const DialogsRedux = reduxForm({form: "message"})(DialogsForm)
 

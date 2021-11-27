@@ -5,13 +5,13 @@ import ProfileSocial from './ProfileSocial'
 import userPhoto from "./../../../assets/img/1.png";
 import ProfileStatusHook from './ProfileStatusHook'
 
-const ProfileInfo = (props) => {
+const ProfileInfo = React.memo((props) => {
 	if(!props.profile) {
 		return <Preloader />
 	}
-
 	return (
 		<div className={classes.ProfileInfo}>
+		
 			{/* <div>
 				<img src="https://images8.alphacoders.com/790/790793.jpg" alt="" />
 			</div> */}
@@ -29,6 +29,6 @@ const ProfileInfo = (props) => {
 		</div>
 		
 	)
-}
+});
 
 export default ProfileInfo
