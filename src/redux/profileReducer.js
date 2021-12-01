@@ -10,7 +10,7 @@ const initialState = {
 		{ id: 1, message: "Hi, do you do", count: 422 },
 		{ id: 2, message: "My name is Nikolay", count: 35 },
 		{ id: 3, message: "", count: 0 },
-		{ id: 4, message: "", count: 68 }, { message: "", count: 4 },
+		{ id: 4, message: "", count: 68 }, 
 	],
 	profile: null,
 	status: ""
@@ -22,12 +22,11 @@ const profileReducer = (state = initialState, action) => {
 		case ADD_POST:
 			return {
 				...state,
-				posts: [...state.posts, { id: 6, message: action.newPostText, count: 0 }],
+				posts: [...state.posts, { id: 5, message: action.newPostText, count: 0 }],
 			}
 			case REMOVE_POST:
 			return {
-				...state,
-				posts: [...state.posts].pop()
+				...state, posts: state.posts.filter(r => r.id != action.postId)
 			}
 		case SET_USER_PROFILE:
 			return {
@@ -45,7 +44,7 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostText })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
-export const removePostActionCreator = () => ({type: REMOVE_POST})
+export const removePostActionCreator = (postId) => ({type: REMOVE_POST, postId})
 export default profileReducer;
 
 export const getProfileThunkCreator = (userId) => (dispatch) => {
