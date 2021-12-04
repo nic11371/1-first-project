@@ -5,8 +5,8 @@ import ProfileSocial from './ProfileSocial'
 import userPhoto from "./../../../assets/img/1.png";
 import ProfileStatusHook from './ProfileStatusHook'
 
-const ProfileInfo = React.memo((props) => {
-	if(!props.profile) {
+const ProfileInfo = React.memo(({profile, status, updateStatus}) => {
+	if(!profile) {
 		return <Preloader />
 	}
 	return (
@@ -17,13 +17,13 @@ const ProfileInfo = React.memo((props) => {
 			</div> */}
 			
 			<div className={classes.descriptionBlock}>
-			<div>{props.profile.fullName}</div>
-			<img src={props.profile.photos.large != null ?
-			 props.profile.photos.large : userPhoto} alt="" />
-			 <ProfileStatusHook status={props.status} updateStatus={props.updateStatus} />
-			<div>{props.profile.lookingForAJob}</div>
-			<div>{props.profile.lookingForAJobDescription}</div>
-			<div><ProfileSocial profile={props.profile.contacts}/></div>
+			<div>{profile.fullName}</div>
+			<img src={profile.photos.large != null ?
+			 profile.photos.large : userPhoto} alt="" />
+			 <ProfileStatusHook status={status} updateStatus={updateStatus} />
+			<div>{profile.lookingForAJob}</div>
+			<div>{profile.lookingForAJobDescription}</div>
+			<div><ProfileSocial profile={profile.contacts}/></div>
 		
 			</div>
 		</div>

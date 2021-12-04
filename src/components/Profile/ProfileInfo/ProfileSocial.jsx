@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ProfileSocial = (props) => {
+const ProfileSocial = ({profile}) => {
 
 return(
-	Object.entries(props.profile).map(([key, value]) => {
+	Object.entries(profile).map(([key, value]) => {
 		return (key + " - " + value + "; ")
 	})
 )

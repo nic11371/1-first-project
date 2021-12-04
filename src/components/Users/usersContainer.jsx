@@ -8,19 +8,20 @@ import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import { getCurrentPage,  getFetching, getFollowInProgress,
 	 getPageSize, getTotalUsersCount, getUsers} from "./usersSelectors";
+import { PureComponent } from "react";
 
-class UsersContainer extends React.Component {
-
+class UsersContainer extends PureComponent {
 	componentDidMount() {
-		this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+		const {currentPage, pageSize} = this.props
+		this.props.getUsersThunkCreator(currentPage, pageSize)
 	}
 
 	onPageChanged = (pageNumber) => {
-		this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
+		const {pageSize} = this.props
+		this.props.getUsersThunkCreator(pageNumber, pageSize)
 	}
 
 	render() {
-		console.log("USERS")
 		return <>
 		{this.props.isFetching ? <Preloader /> : null }
 			<Users totalUsersCount={this.props.totalUsersCount}
@@ -36,7 +37,6 @@ class UsersContainer extends React.Component {
 		</>
 	}
 }
-
 
 const mapStateToProps = (state) => {
 	return {

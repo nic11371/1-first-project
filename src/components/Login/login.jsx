@@ -1,31 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { loginAuthThunkCreator, logoutAuthThunkCreator } from '../../redux/authReducer';
 import { maxLengthCreator, required } from '../../utilites/validation/validation';
-import { Input } from '../Common/FormsControls/FormsControls';
+import { createField, Input } from '../Common/FormsControls/FormsControls';
 import { isAuth } from '../Profile/ProfileSelectors';
 import styles from './../Common/FormsControls/FormsControls.module.css'
 
 const maxLengthLogin30 = maxLengthCreator(30);
 const maxLengthPassword15 = maxLengthCreator(15)
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
-			<div>
-				<Field placeholder={"Email"} name={"email"} 
-				component={Input} type={"textarea"} validate={[required, maxLengthLogin30]} />
-			</div>
-			<div>
-				<Field placeholder={"Password"} name={"password"} 
-				component={Input} type={"password"} validate={[required, maxLengthPassword15]} />
-			</div>
-			<div>
-				<Field name={"rememberMe"} component={"input"} type={"checkbox"} /> Remember me
-			</div>
-			{props.error && <div className={styles.formSummaryError}>
-				{props.error}
+		<form onSubmit={handleSubmit}>
+			{createField("Email", "email", Input, [required, maxLengthLogin30], {type: "textarea"},)}
+			{createField("Password", "password", Input, [required, maxLengthPassword15], {type: "password"})}
+			{createField(null, "rememberMe", Input, [], {type: "checkbox"}, "remember Me")}
+			{error && <div className={styles.formSummaryError}>
+				{error}
 			</div> 
 			}
 			<div>
@@ -38,13 +30,13 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
 
-const Login = (props) => {
+const Login = ({loginAuthThunkCreator, isAuth}) => {
 
 	let onSubmit = (formData) => {
-		props.loginAuthThunkCreator(formData.email, formData.password, formData.rememberMe)
+		loginAuthThunkCreator(formData.email, formData.password, formData.rememberMe)
 	}
 
-	if(props.isAuth) {
+	if(isAuth) {
 		return <Redirect to={"/profile"} />
 	} 
 

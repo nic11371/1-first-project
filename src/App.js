@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { compose } from 'redux';
 import './App.css';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -29,7 +29,7 @@ class App extends React.Component {
 		}
 
 
-		return (<BrowserRouter>
+		return (
 			<div className="app-wrapper">
 				<HeaderContainer />
 				<Nav />
@@ -44,7 +44,7 @@ class App extends React.Component {
 					<Route path='/login' render={() => <Login />} />
 				</div>
 			</div>
-		</BrowserRouter>);
+		);
 	}
 
 }

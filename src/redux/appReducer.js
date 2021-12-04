@@ -1,13 +1,11 @@
 import { authThunkCreator } from "./authReducer";
 
-const SET_INITIALIZED = "SET_INITIALIZED";
-
+const SET_INITIALIZED = "network/app/SET_INITIALIZED";
 const initialState = {
 		initialized: false
 }
 
 const appReducer = (state = initialState, action) => {
-
 	switch (action.type) {
 		case SET_INITIALIZED:
 			return {
@@ -20,13 +18,9 @@ const appReducer = (state = initialState, action) => {
 }
 
 export const initializedSuccess = () => ({ type: SET_INITIALIZED })
-
-export const initializeAppThunkCreator = () => (dispatch) => {
-	const promise = dispatch(authThunkCreator());
-	promise.then(() => {
-		dispatch(initializedSuccess())}
-	)
+export const initializeAppThunkCreator = () => async (dispatch) => {
+	const response = await dispatch(authThunkCreator());
+	dispatch(initializedSuccess())
 }
-
 export default appReducer;
 

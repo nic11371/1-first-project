@@ -1,9 +1,9 @@
 import { profileAPI } from "../api/api";
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const REMOVE_POST = "REMOVE_POST"
+const ADD_POST = "network/profile/ADD-POST";
+const SET_USER_PROFILE = 'network/profile/SET_USER_PROFILE';
+const SET_STATUS = 'network/profile/SET_STATUS';
+const REMOVE_POST = "network/profile/REMOVE_POST"
 
 const initialState = {
 	posts: [
@@ -47,26 +47,19 @@ export const setStatus = (status) => ({ type: SET_STATUS, status })
 export const removePostActionCreator = (postId) => ({type: REMOVE_POST, postId})
 export default profileReducer;
 
-export const getProfileThunkCreator = (userId) => (dispatch) => {
-	profileAPI.getProfile(userId)
-		.then(response => {
+export const getProfileThunkCreator = (userId) => async (dispatch) => {
+	const response = await profileAPI.getProfile(userId)
 			dispatch(setUserProfile(response));
-
-		})
 }
 
-export const getUserStatusThunkCreator = (userId) => (dispatch) => {
-	profileAPI.getStatus(userId)
-		.then(response => {
-			dispatch(setStatus(response.data))
-		});
+export const getUserStatusThunkCreator = (userId) => async (dispatch) => {
+	const response = await profileAPI.getStatus(userId)
+			dispatch(setStatus(response.data));
 }
 
-export const updateStatusThunkCreator = (status) => (dispatch) => {
-	profileAPI.updateStatus(status)
-		.then(response => {
+export const updateStatusThunkCreator = (status) => async (dispatch) => {
+	const response = await profileAPI.updateStatus(status)
 			if (response.data.resultCode === 0) {
 				dispatch(setStatus(status))
 			}
-		});
 }

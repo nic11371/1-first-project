@@ -3,17 +3,4 @@
 	height: 50px;
 }
 
-.selectedPage{
-	font-weight: bold;
-	
-}
 
-.pageNumber {
-	cursor: pointer;
-	padding:3% 0px 3% 0px;
-	text-align: center;
-	display: grid;
-	grid-template-rows: 0.1fr 1fr;
-	grid-template-columns: repeat(15, 1fr);
-
-}

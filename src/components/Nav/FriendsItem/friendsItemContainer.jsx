@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { getSidebarActionCreator } from '../../../redux/sidebarReducer';
 import FriendsItem from "./friendsItem"
 
 let mapStateToProps = (state) => {
@@ -7,6 +8,6 @@ let mapStateToProps = (state) => {
 	}
 }
 
-const FriendItemContainer = connect(mapStateToProps)(FriendsItem)
+const FriendItemContainer = connect(mapStateToProps, getSidebarActionCreator)(FriendsItem)
 
 export default FriendItemContainer

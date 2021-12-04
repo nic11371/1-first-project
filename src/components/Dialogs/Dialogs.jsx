@@ -7,9 +7,9 @@ import { maxLengthCreator, required } from '../../utilites/validation/validation
 import { Textarea } from '../Common/FormsControls/FormsControls'
 
 const maxLength50 = maxLengthCreator(50)
-const DialogsForm = React.memo((props) => {
+const DialogsForm = React.memo(({handleSubmit}) => {
 	return (
-		<form onSubmit={props.handleSubmit}  >
+		<form onSubmit={handleSubmit}  >
 			<div> 
 				<Field name={"newMessageText"} component={Textarea} type={"textarea"}
 					validate={[required, maxLength50]} placeholder={"Input message"} />
@@ -25,16 +25,16 @@ const DialogsForm = React.memo((props) => {
 
 const DialogsRedux = reduxForm({form: "message"})(DialogsForm)
 
-const Dialogs = (props) => {
+const Dialogs = ({dialogsPage, addMessage}) => {
 
 	const onSubmit = (values) => {
-		props.addMessage(values.newMessageText);
+		addMessage(values.newMessageText);
 	}
 
 	return (
 		<div className={classes.Dialogs}>
-		<div className={classes.DialogsItems}> {props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} />)}</div>
-		<div className={classes.messages}>{props.dialogsPage.messages.map(m => <Messages message={m.message} key={m.id} />)}</div>
+		<div className={classes.DialogsItems}> {dialogsPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} />)}</div>
+		<div className={classes.messages}>{dialogsPage.messages.map(m => <Messages message={m.message} key={m.id} />)}</div>
 			<DialogsRedux onSubmit={onSubmit} />
 		</div>	
 				

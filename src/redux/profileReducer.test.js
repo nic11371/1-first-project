@@ -1,4 +1,6 @@
-import profileReducer, { addPostActionCreator, removePostActionCreator } from "./profileReducer"
+import Profile from "../components/Profile/Profile";
+import profileReducer, { addPostActionCreator, removePostActionCreator,
+setStatus, setUserProfile } from "./profileReducer"
 
 
 const state = {
@@ -33,3 +35,18 @@ it('after deleting length should`t be decrement if id is incorrect' , () => {
 	let newState = profileReducer(state, action);
 	expect(newState.posts.length).toBe(4)
 })
+
+it('status should be set' , () => {
+	let action = setStatus("Hi")
+	let newState = profileReducer(state, action);
+	expect(newState.status).toBe("Hi")
+})
+
+it('user profile should be set' , () => {
+	let action = setUserProfile(Profile)
+	let newState = profileReducer(state, action);
+	expect(newState.profile).toBe(Profile)
+})
+
+
+

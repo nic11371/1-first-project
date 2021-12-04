@@ -7,9 +7,9 @@ import Post from "./Post/Post"
 
 const maxLength50 = maxLengthCreator(50);
 
-export const PostForm = (props) => {
+export const PostForm = ({handleSubmit}) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
+		<form onSubmit={handleSubmit}>
 			<div>
 				<Field name={"newPostText"} placeholder={"Input Post"} 
 				component={Textarea} type={"textarea"} 
