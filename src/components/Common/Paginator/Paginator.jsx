@@ -1,8 +1,9 @@
 import React from "react";
 import classes from "./paginator.module.css"
 
-export const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
-
+export const Paginator = ({totalUsersCount, pageSize, currentPage, 
+	onPageChanged, ...props}) => {
+  
 	let pagesCount = Math.ceil(totalUsersCount / pageSize);
 	let pages = [];
 	for (let i = 1; i <= pagesCount; i++) {

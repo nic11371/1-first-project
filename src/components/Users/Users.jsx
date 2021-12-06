@@ -11,7 +11,7 @@ const Users = React.memo(({ totalUsersCount, pageSize, currentPage,
 			currentPage={currentPage} onPageChanged={onPageChanged} />
 		{
 			users.map(u => <User user={u}
-				key={u.id}
+				key={u.userId}
 				followInProgress={props.followInProgress}
 				followThunkCreator={props.followThunkCreator}
 				unfollowThunkCreator={props.unfollowThunkCreator} />

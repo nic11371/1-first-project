@@ -1,30 +1,27 @@
 import React from "react";
-import userPhoto from "./../../assets/img/1.png";
 import classes from "./users.module.css";
-import { NavLink } from 'react-router-dom';
+import Following from "../Common/Follow/Follow";
+import { UserPhoto } from "../Common/UserPhoto/photo";
 
-const User = React.memo(({user, followInProgress, unfollowThunkCreator, followThunkCreator }) => {
-
+const User = React.memo(({ user, followInProgress, unfollowThunkCreator,
+	 followThunkCreator, ...props }) => {
+	// const followInProgressDisabled = () => {
+	// 	return followInProgress.some(id => id === user.id)
+	// }
 	return <div className={classes.Users}>
 
 		<span>
 			<div>{user.name}</div>
 			<div>
-				<NavLink to={'/profile/' + user.id}>
-					<img src={user.photos.small != null ? user.photos.small : userPhoto} alt="" className={classes.userPhoto} />
-				</NavLink>
-			</div>
-			<div>Followed
-				{user.followed ? <button disabled={followInProgress.some(id => id === user.id)}
-					onClick={() => {
-						unfollowThunkCreator(user.id)
-					}}
-				> Unfollow </button>
-					: <button disabled={followInProgress.some(id => id === user.id)}
-						onClick={() => {
-							followThunkCreator(user.id)
-						}}
-					>Follow</button>}
+			<UserPhoto photo={user.photos.small}
+			user={user} />
+		</div>
+			<div>Following:
+				<Following followInProgress={followInProgress}
+					followThunkCreator={followThunkCreator}
+					unfollowThunkCreator={unfollowThunkCreator}
+					user={user}
+				/>
 			</div>
 			<div>{user.status}</div>
 			{/* <div>{u.location.country}
