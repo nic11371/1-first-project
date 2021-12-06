@@ -3,7 +3,7 @@ import classes from "./Profile.module.css"
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 
-const Profile = ({ profile, status, updateStatus, ...props }) => {
+const Profile = ({ profile, status, updateStatus, user, ...props }) => {
 
 	return (
 		<div className={classes.profile}>
@@ -13,7 +13,7 @@ const Profile = ({ profile, status, updateStatus, ...props }) => {
 				followInProgress={props.followInProgress}
 				followThunkCreator={props.followThunkCreator}
 				unfollowThunkCreator={props.unfollowThunkCreator}
-				user={props.user}
+				user={user}
 			/>
 			<MyPostsContainer />
 		</div>

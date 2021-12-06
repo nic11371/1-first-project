@@ -6,7 +6,7 @@ import ProfileStatusHook from './ProfileStatusHook'
 import Following from '../../Common/Follow/Follow';
 import { UserPhoto } from '../../Common/UserPhoto/photo';
 
-const ProfileInfo = React.memo(({ profile, status, updateStatus, ...props }) => {
+const ProfileInfo = React.memo(({ profile, status, updateStatus, user, ...props }) => {
 	if (!profile) {
 		return <Preloader />
 	}
@@ -19,8 +19,10 @@ const ProfileInfo = React.memo(({ profile, status, updateStatus, ...props }) => 
 
 			<div className={classes.descriptionBlock}>
 				<div>{profile.fullName}</div>
-				<UserPhoto user={props.user}
-					photo={props.user.photos.large} />
+				<div>
+				<UserPhoto user={user}
+					photo={user.photos.large} />
+				</div>
 				<ProfileStatusHook status={status} updateStatus={updateStatus} />
 				<div>{profile.lookingForAJob}</div>
 				<div>{profile.lookingForAJobDescription}</div>
