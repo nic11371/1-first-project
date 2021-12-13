@@ -6,15 +6,13 @@ import { NavLink } from "react-router-dom";
 
 const User = React.memo(({ user, followInProgress, unfollowThunkCreator,
 	 followThunkCreator, ...props }) => {
-	// const followInProgressDisabled = () => {
-	// 	return followInProgress.some(id => id === user.id)
-	// }
+
 	return <div className={classes.Users}>
 
 		<span>
 			<div>{user.name}</div>
 			<div className={classes.userPhoto}>
-			<NavLink to={'/profile/' + user.id} >
+			<NavLink to={'/profile/' + user.id}>
 			<UserPhoto photo={user.photos.small}
 			user={user} />
 			</NavLink>

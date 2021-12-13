@@ -10,7 +10,8 @@ const state = {
 	fake: 10
 };
 
-test ('length of users should be incremented', () => {
-	
+test ('array of users should be get', () => {
+	//const newState = usersReducer(state, setUsers({id: 10}));
+	return expect(Promise.resolve('[]')).resolves.toBe('[]')
 })
 

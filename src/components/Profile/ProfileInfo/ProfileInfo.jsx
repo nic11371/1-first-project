@@ -21,23 +21,26 @@ const ProfileInfo = React.memo(({ profile, status, updateStatus, user, ...props 
 				<div>{profile.fullName}</div>
 				<div>
 				<UserPhoto user={user}
-					photo={user.photos.large} />
+					photo={profile.photos.large} />
 				</div>
 				<ProfileStatusHook status={status} updateStatus={updateStatus} />
 				<div>{profile.lookingForAJob}</div>
 				<div>{profile.lookingForAJobDescription}</div>
 				<div><ProfileSocial profile={profile.contacts} /></div>
 				<div>Following:
-					{/* <Following followInProgress={props.followInProgress}
+					<Following followInProgress={props.followInProgress}
 					followThunkCreator={props.followThunkCreator}
 					unfollowThunkCreator={props.unfollowThunkCreator}
-					userId={props.user } */}
-					{/* /> */}
+					user={user} 
+					/>
 				</div>
 			</div>
+
 		</div>
 
 	)
 });
 
 export default ProfileInfo
+
+

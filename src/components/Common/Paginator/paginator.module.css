@@ -1,13 +1,21 @@
-.selectedPage{
-	font-weight: bold;
-	
-}
 .pageNumber {
 	cursor: pointer;
-	padding:3% 0px 3% 0px;
-	text-align: center;
+	padding: 2px;
+	border: 1px solid grey;
+	/* text-align: center;
 	display: grid;
 	grid-template-rows: 0.1fr 1fr;
-	grid-template-columns: repeat(15, 1fr);
+	grid-template-columns: repeat(15, 1fr); */
+}
 
+.pageNumber.selectedPage{
+	font-weight: bold;
+	border-color: black;
+}
+
+.paginator {
+	margin: 10px;
+	display: block;
+	text-align: center;
+		
 }

@@ -5,7 +5,7 @@ const Following = ({ user, followInProgress,
 		return followInProgress.some(id => id === user.id)
 	}
 
-	return (user.followed ? <button disabled={followInProgressDisabled()}
+	return (true ? <button disabled={followInProgressDisabled()}
 		onClick={() => {
 			unfollowThunkCreator(user.id)
 		}} > Unfollow </button>

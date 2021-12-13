@@ -27,3 +27,7 @@ export const getFollowInProgress = (state) => {
 export const getUsers = createSelector(getUsersSelector, (users) => {
 	return users.filter(f => true);
 });
+
+export const getPortionSize = (state) => {
+	return state.usersPage.portionSize
+}

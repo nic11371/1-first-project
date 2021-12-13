@@ -5,12 +5,13 @@ import {
 	getProfileThunkCreator, getUserStatusThunkCreator,
 	updateStatusThunkCreator
 } from '../../redux/profileReducer'
-import { followThunkCreator, unfollowThunkCreator } from '../../redux/usersReducer'
+import { followThunkCreator, unfollowThunkCreator, 
+	getUsersThunkCreator, } from '../../redux/usersReducer'
 import { withRouter } from 'react-router';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { isAuth, profile, profileStatus, userId } from './ProfileSelectors';
-import { getFollowInProgress } from './../Users/usersSelectors';
+import { getFollowInProgress, getUsers } from './../Users/usersSelectors';
 
 class ProfileContainer extends React.Component {
 
@@ -22,9 +23,13 @@ class ProfileContainer extends React.Component {
 				this.props.history.push("/login")
 			}
 		}
+		this.props.getUsersThunkCreator()
 		this.props.getProfileThunkCreator(userId);
 		this.props.getUserStatusThunkCreator(userId);
+	}
 
+	arrayUser = (array) => {
+		return array.filter(f => f.id == this.props.match.params.userId)
 	}
 
 	render() {
@@ -34,7 +39,7 @@ class ProfileContainer extends React.Component {
 				followInProgress={this.props.followInProgress}
 				followThunkCreator={this.props.followThunkCreator}
 				unfollowThunkCreator={this.props.unfollowThunkCreator}
-				user={this.props.user}
+				user={this.arrayUser(this.props.user)}
 			/>
 		)
 	}
@@ -46,7 +51,7 @@ const mapStateToProps = (state) => {
 		status: profileStatus(state),
 		isAuth: isAuth(state),
 		autorizedUserId: userId(state),
-		user: profile(state),
+		user: getUsers(state),
 		followInProgress: getFollowInProgress(state)
 	})
 }
@@ -57,7 +62,8 @@ export default compose(
 		getUserStatusThunkCreator,
 		updateStatusThunkCreator,
 		followThunkCreator,
-		unfollowThunkCreator
+		unfollowThunkCreator,
+		getUsersThunkCreator
 	}),
 	withRouter,
 	withAuthRedirect
