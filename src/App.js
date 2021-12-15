@@ -1,17 +1,15 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from 'react';
 import { connect } from 'react-redux';
 import { Route } from "react-router-dom";
 import { compose } from 'redux';
 import './App.css';
 import Friends from "./components/Friends/Friends";
 import HeaderContainer from './components/Header/HeaderContainer';
-//import Login from './components/Login/login';
 import Music from "./components/Music/Music";
 import Nav from './components/Nav/Nav';
 import News from "./components/News/News";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Settings from "./components/Settings/Settings";
-//import UsersContainer from './components/Users/usersContainer';
 import { initializeAppThunkCreator } from './redux/appReducer';
 import { withRouter } from 'react-router';
 import Preloader from './components/Common/Preloader/preloader';
