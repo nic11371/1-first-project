@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
 	getProfileThunkCreator, getUserStatusThunkCreator,
 	updatePhotoThunkCreator,
-	updateStatusThunkCreator, 
+	updateStatusThunkCreator, dataFormThunkCreator
 } from '../../redux/profileReducer'
 import { followThunkCreator, unfollowThunkCreator, 
 	getUsersThunkCreator, } from '../../redux/usersReducer'
@@ -13,7 +13,6 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { isAuth, profile, profileStatus, userId } from './ProfileSelectors';
 import { getFollowInProgress, getUsers } from './../Users/usersSelectors';
-import Preloader from '../Common/Preloader/preloader';
 
 class ProfileContainer extends React.Component {
 
@@ -55,6 +54,7 @@ class ProfileContainer extends React.Component {
 				unfollowThunkCreator={this.props.unfollowThunkCreator}
 				user={this.arrayUser(this.props.user)}
 				savePhoto={this.props.updatePhotoThunkCreator}
+				
 			/>
 		)
 	}
@@ -80,7 +80,8 @@ export default compose(
 		followThunkCreator,
 		unfollowThunkCreator,
 		getUsersThunkCreator,
-		updatePhotoThunkCreator
+		updatePhotoThunkCreator,
+		dataFormThunkCreator
 	}),
 	withRouter,
 	withAuthRedirect

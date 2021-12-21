@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI } from "../api/api";
 
 const ADD_POST = "network/profile/ADD-POST";
@@ -74,5 +75,19 @@ export const updatePhotoThunkCreator = (photo) => async (dispatch) => {
 	const response = await profileAPI.savePhoto(photo)
 	if (response.data.resultCode === 0) {
 		dispatch(savePhotoSuccess(response.data.data.photos))
+	}
+}
+
+export const dataFormThunkCreator = (profile) => async (dispatch, getState) => {
+	const userId = getState().auth.userId
+	const response = await profileAPI.updateProfile(profile)
+	if (response.data.resultCode === 0) {
+		dispatch(getProfileThunkCreator(userId))
+	} else{
+		dispatch(stopSubmit("profileEdit", {_error: response.data.messages[0]}
+	
+		//{"contacts": {"facebook": response.data.messages[0]}}
+		))
+		return Promise.reject(response.data.messages[0])
 	}
 }

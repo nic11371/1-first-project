@@ -42,7 +42,10 @@ export const profileAPI = {
 			}
 		}
 		)
-	}
+	},
+	updateProfile(profile) {
+		return instance().put(`profile`, profile)
+}
 }
 
 export const authAPI = {
@@ -61,4 +64,6 @@ export const authAPI = {
 		return instance().delete(`auth/login/`);
 	}
 }
+
+
 

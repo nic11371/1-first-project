@@ -14,8 +14,10 @@ const Profile = ({ profile, status, updateStatus, user, isOwner, savePhoto, ...p
 				followInProgress={props.followInProgress}
 				followThunkCreator={props.followThunkCreator}
 				unfollowThunkCreator={props.unfollowThunkCreator}
+				dataFormThunkCreator={props.dataFormThunkCreator}
 				user={user}
 				savePhoto={savePhoto}
+				
 			/>
 			<MyPostsContainer />
 		</div>
