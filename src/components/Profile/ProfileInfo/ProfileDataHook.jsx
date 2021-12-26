@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import ProfileData from './ProfileData';
 import ProfileDataForm from './ProfileDataForm';
 
-const ProfileDataHook = React.memo(({ profile, dataFormThunkCreator, isOwner, ...props }) => {
+const ProfileDataHook = React.memo(({ profile, dataFormThunkCreator,
+	isOwner, isProfileUpdate, ...props }) => {
 
 const [editMode, setEditMode] = useState(false);
 
 	const onSubmit = (formData) => {
-		dataFormThunkCreator(formData).then(
-			() => setEditMode(false)
-		)
-		
+		dataFormThunkCreator(formData);
+		isProfileUpdate && setEditMode(false)
 	}
 	
 	return (<div>

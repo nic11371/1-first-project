@@ -1,6 +1,6 @@
 import React, { lazy } from 'react';
 import { connect } from 'react-redux';
-import { Route } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { compose } from 'redux';
 import './App.css';
 import Friends from "./components/Friends/Friends";
@@ -22,10 +22,17 @@ const UsersContainer = lazy(() => import('./components/Users/usersContainer'));
 
 
 class App extends React.Component {
-	componentDidMount() {
-		this.props.initializeAppThunkCreator()
+	catchAllUnhandledErrors = (reason, promise) => {
+		alert("Some error occured");
+		console.error(promise)
 	}
-
+	componentDidMount() {
+		this.props.initializeAppThunkCreator();
+		window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+	}
+	componentWillUnmount() {
+		window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+	}
 	render() {
 		if (!this.props.initialized) {
 			return <Preloader />
@@ -37,15 +44,20 @@ class App extends React.Component {
 				<HeaderContainer />
 				<Nav />
 				<div className="app-wrapper-content">
-					<Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-					<Route path='/dialogs' render={withSuspense(DialogsContainer)} />
-					<Route path='/news' render={() => <News />} />
-					<Route path='/music' render={() => <Music />} />
-					<Route path='/settings' render={() => <Settings />} />
-					<Route path='/friends' render={() => <Friends />} />
-					<Route path='/users' render={withSuspense(UsersContainer)} />
-					<Route path='/login' render={withSuspense(Login)} />
+					<Switch >
+						<Redirect exact from="/" to="/profile" />
+						<Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
+						<Route path='/dialogs' render={withSuspense(DialogsContainer)} />
+						<Route path='/news' render={() => <News />} />
+						<Route path='/music' render={() => <Music />} />
+						<Route path='/settings' render={() => <Settings />} />
+						<Route path='/friends' render={() => <Friends />} />
+						<Route path='/users' render={withSuspense(UsersContainer)} />
+						<Route path='/login' render={withSuspense(Login)} />
+						<Route path='*' render={() => <div>ERROR: 404 NOT FOUND</div>} />
+					</Switch>
 				</div>
+
 			</div>
 		);
 	}

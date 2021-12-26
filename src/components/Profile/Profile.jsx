@@ -3,7 +3,8 @@ import classes from "./Profile.module.css"
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 
-const Profile = ({ profile, status, updateStatus, user, isOwner, savePhoto, ...props }) => {
+const Profile = ({ profile, status, updateStatus, user, isOwner, 
+	savePhoto, isProfileUpdate, ...props }) => {
 
 	return (
 		<div className={classes.profile}>
@@ -17,7 +18,7 @@ const Profile = ({ profile, status, updateStatus, user, isOwner, savePhoto, ...p
 				dataFormThunkCreator={props.dataFormThunkCreator}
 				user={user}
 				savePhoto={savePhoto}
-				
+				isProfileUpdate={isProfileUpdate}
 			/>
 			<MyPostsContainer />
 		</div>

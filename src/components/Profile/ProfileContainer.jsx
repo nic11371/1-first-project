@@ -68,7 +68,7 @@ const mapStateToProps = (state) => {
 		autorizedUserId: userId(state),
 		user: getUsers(state),
 		followInProgress: getFollowInProgress(state),
-
+		isProfileUpdate: state.profilePage.isProfileUpdate
 	})
 }
 
