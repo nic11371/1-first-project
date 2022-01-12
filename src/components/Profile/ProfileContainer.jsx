@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
 	getProfileThunkCreator, getUserStatusThunkCreator,
 	updatePhotoThunkCreator,
-	updateStatusThunkCreator, dataFormThunkCreator
+	updateStatusThunkCreator, dataFormThunkCreator, toggleIsProfileUpdate
 } from '../../redux/profileReducer'
 import { followThunkCreator, unfollowThunkCreator, 
 	getUsersThunkCreator, } from '../../redux/usersReducer'
@@ -81,7 +81,8 @@ export default compose(
 		unfollowThunkCreator,
 		getUsersThunkCreator,
 		updatePhotoThunkCreator,
-		dataFormThunkCreator
+		dataFormThunkCreator, 
+		toggleIsProfileUpdate
 	}),
 	withRouter,
 	withAuthRedirect

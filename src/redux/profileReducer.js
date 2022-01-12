@@ -17,7 +17,7 @@ const initialState = {
 	],
 	profile: null,
 	status: "",
-	isProfileUpdate: false
+	isProfileUpdate: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -99,11 +99,13 @@ export const dataFormThunkCreator = (profile) => async (dispatch, getState) => {
 	if (response.data.resultCode === 0) {
 		dispatch(getProfileThunkCreator(userId));
 		dispatch(toggleIsProfileUpdate(true));
+		
 	} else {
+		dispatch(toggleIsProfileUpdate(false));
 		dispatch(stopSubmit("profileEdit", { _error: response.data.messages[0] }
-
 			//{"contacts": {"facebook": response.data.messages[0]}}
 		))
-		//return Promise.reject(response.data.messages[0])
+
+		return Promise.reject(response.data.messages[0])
 	}
 }

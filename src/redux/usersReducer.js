@@ -71,6 +71,7 @@ async (dispatch) => {
 			dispatch(toggleIsFetching(false));
 			dispatch(setUsers(response.items));
 			dispatch(setTotalUsersCount(response.totalCount));
+			dispatch(setCurrentPage(currentPage))
 }
 
 export const followThunkCreatorFlow = async (dispatch, userId, 

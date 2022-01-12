@@ -28,10 +28,10 @@ class App extends React.Component {
 	}
 	componentDidMount() {
 		this.props.initializeAppThunkCreator();
-		window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+		//window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
 	}
 	componentWillUnmount() {
-		window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+	//	window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
 	}
 	render() {
 		if (!this.props.initialized) {

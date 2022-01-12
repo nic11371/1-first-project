@@ -4,7 +4,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 
 const Profile = ({ profile, status, updateStatus, user, isOwner, 
-	savePhoto, isProfileUpdate, ...props }) => {
+	savePhoto, isProfileUpdate, toggleIsProfileUpdate, ...props }) => {
 
 	return (
 		<div className={classes.profile}>
@@ -19,6 +19,7 @@ const Profile = ({ profile, status, updateStatus, user, isOwner,
 				user={user}
 				savePhoto={savePhoto}
 				isProfileUpdate={isProfileUpdate}
+				toggleIsProfileUpdate={toggleIsProfileUpdate}
 			/>
 			<MyPostsContainer />
 		</div>

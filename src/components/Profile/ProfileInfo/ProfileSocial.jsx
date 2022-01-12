@@ -4,7 +4,7 @@ const ProfileSocial = ({profile}) => {
 
 return(
 	Object.entries(profile).map(([key, value]) => {
-		return <div>
+		return <div> key={key}
 		<b>{key}:</b> {value} 
 		</div>
 	})
