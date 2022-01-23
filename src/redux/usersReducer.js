@@ -1,5 +1,6 @@
 import { usersAPI } from "../api/api";
 import { updateObjectInArray } from "../utilites/helper/followHelpers";
+import {followedUser, unfollowedUser} from "./profileReducer"
 
 const FOLLOWED = "network/users/FOLLOWED";
 const UNFOLLOWED = "network/users/UNFOLLOWED";
@@ -25,11 +26,14 @@ const usersReducer = (state = initialState, action) => {
 		case FOLLOWED:
 			return {
 				...state,
-				users: updateObjectInArray(state.users, action.userId, "id", {followed: true})
+				users: updateObjectInArray(state.users, action.userId, "id", {followed: true}),
+				
 			}
 		case UNFOLLOWED:
 			return {
-				...state, users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
+				...state, 
+				users: updateObjectInArray(state.users, action.userId, "id", {followed: false}),
+				
 			}
 		case SET_USERS: {
 			return { ...state, users: action.users }
@@ -61,7 +65,8 @@ export const setUsers = (users) => ({ type: SET_USERS, users })
 export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount })
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, count: isFetching })
-export const toggleFollowInProgress = (isFetching, userId) => ({ type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userId })
+export const toggleFollowInProgress = (isFetching, userId) =>
+ ({ type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userId })
 export default usersReducer;
 
 export const getUsersThunkCreator = (currentPage, pageSize, portionSize) => 
@@ -75,21 +80,22 @@ async (dispatch) => {
 }
 
 export const followThunkCreatorFlow = async (dispatch, userId, 
-	apiMethod, actionCreatorFlow) => {
+	apiMethod, actionCreatorFlow, actionCreatorFlowProfile) => {
 	dispatch(toggleFollowInProgress(true, userId))
 	const response = await apiMethod(userId)
 			if (response.resultCode === 0) {
 				dispatch(actionCreatorFlow(userId))
+				dispatch(actionCreatorFlowProfile(userId))
 			}
 			dispatch(toggleFollowInProgress(false, userId))
 }
 
 export const unfollowThunkCreator = (userId) => async (dispatch) => {
-	followThunkCreatorFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowed)
+	followThunkCreatorFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowed, unfollowedUser)
 }
 
 export const followThunkCreator = (userId) => async(dispatch) => {
-	followThunkCreatorFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followed)
+	followThunkCreatorFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followed, followedUser)
 }
 
 

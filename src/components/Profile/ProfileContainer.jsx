@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
 	getProfileThunkCreator, getUserStatusThunkCreator,
 	updatePhotoThunkCreator,
-	updateStatusThunkCreator, dataFormThunkCreator, toggleIsProfileUpdate
+	updateStatusThunkCreator, dataFormThunkCreator, toggleIsProfileUpdate, userFollowed,
+	followedUser, unfollowedUser
 } from '../../redux/profileReducer'
 import { followThunkCreator, unfollowThunkCreator, 
 	getUsersThunkCreator, } from '../../redux/usersReducer'
@@ -27,6 +28,12 @@ class ProfileContainer extends React.Component {
 		this.props.getUsersThunkCreator()
 		this.props.getProfileThunkCreator(userId);
 		this.props.getUserStatusThunkCreator(userId);
+		this.props.users
+		.map(u => {
+			if( +userId == u.id) {
+				this.props.userFollowed(u)
+	}});
+
 	}
  
 	componentDidMount() {
@@ -35,12 +42,8 @@ class ProfileContainer extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if(prevProps.match.params.userId != this.props.match.params.userId) {
-		this.updateRefreshProfile()
+		this.updateRefreshProfile();
 		} 
-	}
-
-	arrayUser = (array) => {
-		return array.filter(f => f.id == this.props.match.params.userId)
 	}
 
 	render() {
@@ -49,10 +52,12 @@ class ProfileContainer extends React.Component {
 				isOwner={!this.props.match.params.userId}
 			 	profile={this.props.profile} status={this.props.status}
 				updateStatus={this.props.updateStatusThunkCreator}
+				followed = {this.props.users.followed}
 				followInProgress={this.props.followInProgress}
 				followThunkCreator={this.props.followThunkCreator}
 				unfollowThunkCreator={this.props.unfollowThunkCreator}
-				user={this.arrayUser(this.props.user)}
+				userId = {this.props.match.params.userId}
+				users={this.props.profileFollowed} 
 				savePhoto={this.props.updatePhotoThunkCreator}
 				
 			/>
@@ -66,9 +71,11 @@ const mapStateToProps = (state) => {
 		status: profileStatus(state),
 		isAuth: isAuth(state),
 		autorizedUserId: userId(state),
-		user: getUsers(state),
+		users: getUsers(state),
 		followInProgress: getFollowInProgress(state),
-		isProfileUpdate: state.profilePage.isProfileUpdate
+		isProfileUpdate: state.profilePage.isProfileUpdate,
+		profileFollowed:state.profilePage.profileFollowed,
+		usersFollowed: state.usersPage.profileFollowed
 	})
 }
 
@@ -82,7 +89,11 @@ export default compose(
 		getUsersThunkCreator,
 		updatePhotoThunkCreator,
 		dataFormThunkCreator, 
-		toggleIsProfileUpdate
+		toggleIsProfileUpdate,
+		userFollowed,
+		followedUser, unfollowedUser,
+
+		
 	}),
 	withRouter,
 	withAuthRedirect

@@ -1,6 +1,6 @@
 import { createSelector } from "reselect"
 
-const getUsersSelector = (state) => {
+export const getUsers = (state) => {
 	return state.usersPage.users;
 }
 
@@ -24,9 +24,9 @@ export const getFollowInProgress = (state) => {
 	return state.usersPage.followInProgress
 }
 
-export const getUsers = createSelector(getUsersSelector, (users) => {
-	return users.filter(f => true);
-});
+// export const getUsers = createSelector(getUsersSelector, (users) => {
+// 	return users.filter(f => true);
+// });
 
 export const getPortionSize = (state) => {
 	return state.usersPage.portionSize

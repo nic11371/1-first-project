@@ -1,12 +1,16 @@
 import { stopSubmit } from "redux-form";
 import { profileAPI } from "../api/api";
+import { updateObjectInArray } from "../utilites/helper/followHelpers";
 
 const ADD_POST = "network/profile/ADD-POST";
 const SET_USER_PROFILE = 'network/profile/SET_USER_PROFILE';
 const SET_STATUS = 'network/profile/SET_STATUS';
 const REMOVE_POST = "network/profile/REMOVE_POST";
-const SAVE_PHOTO = "SAVE_PHOTO";
-const TOGGLE_IS_PROFILE_UPDATE = "TOGGLE_IS_PROFILE_UPDATE";
+const SAVE_PHOTO = "network/profile/SAVE_PHOTO";
+const TOGGLE_IS_PROFILE_UPDATE = "network/profile/TOGGLE_IS_PROFILE_UPDATE";
+const USER_CURRENT_FOLLOWED = "network/profile/USER_CURRENT_FOLLOWED";
+const USER_CURRENT_UNFOLLOWED = "network/profile/USER_CURRENT_UNFOLLOWED";
+const USER_CURRENT = "network/profile/USER_CURRENT"
 
 const initialState = {
 	posts: [
@@ -17,7 +21,8 @@ const initialState = {
 	],
 	profile: null,
 	status: "",
-	isProfileUpdate: null
+	isProfileUpdate: null,
+	profileFollowed: [true]
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -48,6 +53,20 @@ const profileReducer = (state = initialState, action) => {
 			return {
 				...state, isProfileUpdate: action.isProfileUpdate
 			}
+		case USER_CURRENT:
+			return {
+				...state, profileFollowed: [action.followed]
+			}
+		case USER_CURRENT_FOLLOWED: 
+			return {
+				...state, profileFollowed: 
+				updateObjectInArray(state.profileFollowed, action.userId, "id", {followed: true})
+			}
+		case USER_CURRENT_UNFOLLOWED: 
+			return {
+				...state, profileFollowed: 
+				updateObjectInArray(state.profileFollowed, action.userId, "id", {followed: false})
+			}
 		default:
 			return state;
 	}
@@ -62,6 +81,10 @@ export const savePhotoSuccess = (photos) => ({ type: SAVE_PHOTO, photos })
 export const toggleIsProfileUpdate = (isProfileUpdate) =>
 	({ type: TOGGLE_IS_PROFILE_UPDATE, isProfileUpdate })
 export default profileReducer;
+export const userFollowed = (followed) => ({type: USER_CURRENT, followed})
+export const followedUser = (userId) => ({type: USER_CURRENT_FOLLOWED, userId})
+export const unfollowedUser = (userId) => ({type: USER_CURRENT_UNFOLLOWED, userId})
+
 
 export const getProfileThunkCreator = (userId) => async (dispatch) => {
 	const response = await profileAPI.getProfile(userId)

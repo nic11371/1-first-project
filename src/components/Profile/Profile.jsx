@@ -3,12 +3,12 @@ import classes from "./Profile.module.css"
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 
-const Profile = ({ profile, status, updateStatus, user, isOwner, 
-	savePhoto, isProfileUpdate, toggleIsProfileUpdate, ...props }) => {
+const Profile = ({ profile, status, updateStatus, users, isOwner, 
+	savePhoto, isProfileUpdate, toggleIsProfileUpdate, userId, ...props }) => {
 
 	return (
 		<div className={classes.profile}>
-			<ProfileInfo profile={profile}
+		 <ProfileInfo profile={profile}
 				isOwner={isOwner}
 				status={status}
 				updateStatus={updateStatus}
@@ -16,7 +16,8 @@ const Profile = ({ profile, status, updateStatus, user, isOwner,
 				followThunkCreator={props.followThunkCreator}
 				unfollowThunkCreator={props.unfollowThunkCreator}
 				dataFormThunkCreator={props.dataFormThunkCreator}
-				user={user}
+				user={users}
+				userId= {userId}
 				savePhoto={savePhoto}
 				isProfileUpdate={isProfileUpdate}
 				toggleIsProfileUpdate={toggleIsProfileUpdate}

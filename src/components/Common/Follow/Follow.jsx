@@ -1,11 +1,11 @@
-const Following = ({ user, followInProgress,
+const Following = ({ user, userId, followInProgress,
 	followThunkCreator, unfollowThunkCreator }) => {
 
 	const followInProgressDisabled = () => {
 		return followInProgress.some(id => id === user.id)
 	}
 
-	return (true ? <button disabled={followInProgressDisabled()}
+	return (user.followed ? <button disabled={followInProgressDisabled()}
 		onClick={() => {
 			unfollowThunkCreator(user.id)
 		}} > Unfollow </button>
@@ -17,3 +17,4 @@ const Following = ({ user, followInProgress,
 }
 
 export default Following
+
