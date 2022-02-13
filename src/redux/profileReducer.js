@@ -24,7 +24,8 @@ const initialState = {
 	profile: null,
 	status: "",
 	isProfileUpdate: null,
-	profileFollowed: Object.values(JSON.parse(localStorage.getItem("profileFollowed")))
+	profileFollowed: [true]
+	//Object.values(JSON.parse(localStorage.getItem("profileFollowed")))
 }
 
 const profileReducer = (state = initialState, action) => {
