@@ -6,6 +6,7 @@ const initialState = {
 		initialized: false,
 		globalError: null
 }
+const GET_GLOBAL_STORAGE =  "GET_GLOBAL_STORAGE"
 
 const appReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -23,11 +24,12 @@ const appReducer = (state = initialState, action) => {
 	}
 }
 
+ 
 export const initializedSuccess = () => ({ type: SET_INITIALIZED })
 export const globalErrorReject = (globalError) => ({type: GET_TEXT_GLOBAL_ERROR, globalError})
-export const initializeAppThunkCreator = () => async (dispatch) => {
+export const initializeAppThunkCreator = (state) => async (dispatch) => {
 	const response = await dispatch(authThunkCreator());
-	dispatch(initializedSuccess())
+	dispatch(initializedSuccess());
 }
 export default appReducer;
 

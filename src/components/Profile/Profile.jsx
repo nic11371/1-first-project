@@ -4,7 +4,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 
 const Profile = ({ profile, status, updateStatus, users, isOwner, 
-	savePhoto, isProfileUpdate, toggleIsProfileUpdate, userId, ...props }) => {
+	savePhoto, isProfileUpdate, toggleIsProfileUpdate, ...props }) => {
 
 	return (
 		<div className={classes.profile}>
@@ -17,7 +17,6 @@ const Profile = ({ profile, status, updateStatus, users, isOwner,
 				unfollowThunkCreator={props.unfollowThunkCreator}
 				dataFormThunkCreator={props.dataFormThunkCreator}
 				user={users}
-				userId= {userId}
 				savePhoto={savePhoto}
 				isProfileUpdate={isProfileUpdate}
 				toggleIsProfileUpdate={toggleIsProfileUpdate}

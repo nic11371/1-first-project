@@ -1,5 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { profileAPI } from "../api/api";
+import Preloader from "../components/Common/Preloader/preloader";
 import { updateObjectInArray } from "../utilites/helper/followHelpers";
 
 const ADD_POST = "network/profile/ADD-POST";
@@ -10,7 +11,8 @@ const SAVE_PHOTO = "network/profile/SAVE_PHOTO";
 const TOGGLE_IS_PROFILE_UPDATE = "network/profile/TOGGLE_IS_PROFILE_UPDATE";
 const USER_CURRENT_FOLLOWED = "network/profile/USER_CURRENT_FOLLOWED";
 const USER_CURRENT_UNFOLLOWED = "network/profile/USER_CURRENT_UNFOLLOWED";
-const USER_CURRENT = "network/profile/USER_CURRENT"
+const USER_CURRENT = "network/profile/USER_CURRENT";
+const USER_CURRENT_GLOBAL = "network/profile/USER_CURRENT_GLOBAL"
 
 const initialState = {
 	posts: [
@@ -22,7 +24,7 @@ const initialState = {
 	profile: null,
 	status: "",
 	isProfileUpdate: null,
-	profileFollowed: [true]
+	profileFollowed: Object.values(JSON.parse(localStorage.getItem("profileFollowed")))
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -55,7 +57,7 @@ const profileReducer = (state = initialState, action) => {
 			}
 		case USER_CURRENT:
 			return {
-				...state, profileFollowed: [action.followed]
+				...state, profileFollowed: [action.followed],
 			}
 		case USER_CURRENT_FOLLOWED: 
 			return {
@@ -67,6 +69,12 @@ const profileReducer = (state = initialState, action) => {
 				...state, profileFollowed: 
 				updateObjectInArray(state.profileFollowed, action.userId, "id", {followed: false})
 			}
+		case USER_CURRENT_GLOBAL:
+			return {
+				...state, window: localStorage.setItem('profileFollowed', 
+					JSON.stringify([action.followedGlobal]))
+			}
+		
 		default:
 			return state;
 	}
@@ -84,7 +92,7 @@ export default profileReducer;
 export const userFollowed = (followed) => ({type: USER_CURRENT, followed})
 export const followedUser = (userId) => ({type: USER_CURRENT_FOLLOWED, userId})
 export const unfollowedUser = (userId) => ({type: USER_CURRENT_UNFOLLOWED, userId})
-
+export const userFollowedGlobal = (followedGlobal) => ({type: USER_CURRENT_GLOBAL, followedGlobal})
 
 export const getProfileThunkCreator = (userId) => async (dispatch) => {
 	const response = await profileAPI.getProfile(userId)
@@ -111,6 +119,9 @@ export const updateStatusThunkCreator = (status) => async (dispatch) => {
 
 export const updatePhotoThunkCreator = (photo) => async (dispatch) => {
 	const response = await profileAPI.savePhoto(photo)
+	// if(response) {
+	// 	return <Preloader />
+	// }
 	if (response.data.resultCode === 0) {
 		dispatch(savePhotoSuccess(response.data.data.photos))
 	}

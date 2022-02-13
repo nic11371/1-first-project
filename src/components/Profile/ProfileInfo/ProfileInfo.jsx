@@ -8,7 +8,7 @@ import { UserPhoto } from '../../Common/UserPhoto/photo';
 import ProfileDataHook from './ProfileDataHook'
 
 const ProfileInfo = React.memo(({ profile, status, updateStatus, user, isOwner,
-	savePhoto, onClick, dataFormThunkCreator, isProfileUpdate, toggleIsProfileUpdate, userId,
+	savePhoto, onClick, dataFormThunkCreator, isProfileUpdate, toggleIsProfileUpdate,
 	  ...props }) => {
 	if (!profile) {
 		return <Preloader />
@@ -38,7 +38,6 @@ const ProfileInfo = React.memo(({ profile, status, updateStatus, user, isOwner,
 						followThunkCreator={props.followThunkCreator}
 						unfollowThunkCreator={props.unfollowThunkCreator}
 						user={p}
-						userId = {userId}
 					/>)}
 					
 				</div>}

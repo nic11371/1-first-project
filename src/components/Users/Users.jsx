@@ -7,7 +7,7 @@ const Users = React.memo(({ totalUsersCount, pageSize, portionSize, currentPage,
 	onPageChanged, users, ...props }) => {
 
 	return <div className={classes.Users}>
-		<Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} 
+		<Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} 
 		portionSize={portionSize} currentPage={currentPage} onPageChanged={onPageChanged} />
 		{
 			users.map(u => <User user={u}
@@ -15,7 +15,7 @@ const Users = React.memo(({ totalUsersCount, pageSize, portionSize, currentPage,
 				followInProgress={props.followInProgress}
 				followThunkCreator={props.followThunkCreator}
 				unfollowThunkCreator={props.unfollowThunkCreator} />
-
+				
 			)
 		}
 

@@ -67,16 +67,15 @@ export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, count: isFetching })
 export const toggleFollowInProgress = (isFetching, userId) =>
  ({ type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userId })
-export default usersReducer;
+
 
 export const getUsersThunkCreator = (currentPage, pageSize, portionSize) => 
 async (dispatch) => {
-	dispatch(toggleIsFetching(true))
+	dispatch(toggleIsFetching(true));
 	const response = await usersAPI.getUsers(currentPage, pageSize, portionSize)
 			dispatch(toggleIsFetching(false));
 			dispatch(setUsers(response.items));
 			dispatch(setTotalUsersCount(response.totalCount));
-			dispatch(setCurrentPage(currentPage))
 }
 
 export const followThunkCreatorFlow = async (dispatch, userId, 
@@ -86,6 +85,7 @@ export const followThunkCreatorFlow = async (dispatch, userId,
 			if (response.resultCode === 0) {
 				dispatch(actionCreatorFlow(userId))
 				dispatch(actionCreatorFlowProfile(userId))
+				
 			}
 			dispatch(toggleFollowInProgress(false, userId))
 }
@@ -98,6 +98,6 @@ export const followThunkCreator = (userId) => async(dispatch) => {
 	followThunkCreatorFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followed, followedUser)
 }
 
-
+export default usersReducer;
 
 

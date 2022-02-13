@@ -9,8 +9,6 @@ export const ProfileStatusHook = (props) => {
 	useEffect( () => {
 		setStatus(props.status)
 	}, [props.status])
-//[props.status] устанавливаем не первую перерисовку(будет пусто в stste изначально), 
-//а только каждый раз, когда в props чтото придет
 
 	const activateEditMode = () => {
 		return setEditMode(true)

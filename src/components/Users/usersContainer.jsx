@@ -17,7 +17,8 @@ class UsersContainer extends PureComponent {
 	}
 
 	onPageChanged = (pageNumber) => {
-		const {pageSize, portionSize} = this.props
+		const {pageSize, portionSize} = this.props;
+		this.props.setCurrentPage(pageNumber);
 		this.props.getUsersThunkCreator(pageNumber, pageSize, portionSize)
 	}
 
