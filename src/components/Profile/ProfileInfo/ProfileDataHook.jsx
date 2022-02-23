@@ -12,8 +12,10 @@ const [editMode, setEditMode] = useState(false);
 // 	dataFormThunkCreator(formData)
 // }, [dataFormThunkCreator(formData)]) 
 
+
 	const onSubmit = (formData, isProfileUpdate) => {
 		dataFormThunkCreator(formData);
+		//!Вот эту строку я не смог пока сделать
 	return isProfileUpdate && setEditMode(false);
 	}
 
@@ -22,7 +24,6 @@ const [editMode, setEditMode] = useState(false);
 		initialValues={profile}/> :
 		<ProfileData profile={profile} clickActivateMode={() => {setEditMode(true)}} 
 		isOwner={isOwner} /> 
-		
 		}
 	</div>)
 });

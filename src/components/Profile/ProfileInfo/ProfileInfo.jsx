@@ -8,10 +8,10 @@ import { UserPhoto } from '../../Common/UserPhoto/photo';
 import ProfileDataHook from './ProfileDataHook'
 
 const ProfileInfo = React.memo(({ profile, status, updateStatus, user, isOwner,
-	savePhoto, onClick, dataFormThunkCreator, isProfileUpdate, toggleIsProfileUpdate,
+	savePhoto, onClick, dataFormThunkCreator, isProfileUpdate, toggleIsProfileUpdate, isPhotoLoading,
 	  ...props }) => {
 	if (!profile) {
-		return <Preloader />
+		return <Preloader/>
 	}
 
 	const onMainPhotoSelected = (e) => {
@@ -20,18 +20,22 @@ const ProfileInfo = React.memo(({ profile, status, updateStatus, user, isOwner,
 		}
 	}
 
+
+
 	return (
 		<div className={classes.ProfileInfo}>
 			<div className={classes.descriptionBlock}>
 				<div>
-					<UserPhoto photo={profile.photos.large} />
+					<UserPhoto photo={profile.photos.large} isPhotoLoading={isPhotoLoading} />
 				</div>
 				{isOwner && <input type="file" onChange={onMainPhotoSelected} />}
-				<ProfileStatusHook status={status} updateStatus={updateStatus} />
+				
+				<ProfileStatusHook status={status} updateStatus={updateStatus} isOwner={isOwner}/>
 				<ProfileDataHook profile={profile} onClick={onClick} isOwner={isOwner} 
 					dataFormThunkCreator={dataFormThunkCreator} isProfileUpdate={isProfileUpdate}
 					toggleIsProfileUpdate={toggleIsProfileUpdate}
 				/>
+
 				<div><ProfileSocial profile={profile.contacts} /></div>
 				{!isOwner && <div>Following:
 					{user.map(p => <Following followInProgress={props.followInProgress}

@@ -12,7 +12,8 @@ const TOGGLE_IS_PROFILE_UPDATE = "network/profile/TOGGLE_IS_PROFILE_UPDATE";
 const USER_CURRENT_FOLLOWED = "network/profile/USER_CURRENT_FOLLOWED";
 const USER_CURRENT_UNFOLLOWED = "network/profile/USER_CURRENT_UNFOLLOWED";
 const USER_CURRENT = "network/profile/USER_CURRENT";
-const USER_CURRENT_GLOBAL = "network/profile/USER_CURRENT_GLOBAL"
+const USER_CURRENT_GLOBAL = "network/profile/USER_CURRENT_GLOBAL";
+const SAVE_PHOTO_LOADING = "network/profile/SAVE_PHOTO_LOADING"
 
 const initialState = {
 	posts: [
@@ -23,9 +24,9 @@ const initialState = {
 	],
 	profile: null,
 	status: "",
-	isProfileUpdate: null,
-	profileFollowed: [true]
-	//Object.values(JSON.parse(localStorage.getItem("profileFollowed")))
+	isProfileUpdate: false,
+	profileFollowed: Object.values(JSON.parse(localStorage.getItem("profileFollowed"))),
+	isPhotoLoading: false
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -52,6 +53,10 @@ const profileReducer = (state = initialState, action) => {
 			return {
 				...state, profile: { ...state.profile, photos: action.photos }
 			}
+		case SAVE_PHOTO_LOADING: 
+		return {
+			...state, isPhotoLoading: action.isPhotoLoading
+		}
 		case TOGGLE_IS_PROFILE_UPDATE:
 			return {
 				...state, isProfileUpdate: action.isProfileUpdate
@@ -86,7 +91,10 @@ export const setUserProfile = (profile, isProfileUpdate) =>
 	({ type: SET_USER_PROFILE, payload: profile, isProfileUpdate })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
 export const removePostActionCreator = (postId) => ({ type: REMOVE_POST, postId })
-export const savePhotoSuccess = (photos) => ({ type: SAVE_PHOTO, photos })
+export const savePhotoSuccess = (photos) => 
+({ type: SAVE_PHOTO, photos })
+export const savePhotoLoading = (isPhotoLoading) => 
+({type: SAVE_PHOTO_LOADING, isPhotoLoading })
 export const toggleIsProfileUpdate = (isProfileUpdate) =>
 	({ type: TOGGLE_IS_PROFILE_UPDATE, isProfileUpdate })
 export default profileReducer;
@@ -119,11 +127,10 @@ export const updateStatusThunkCreator = (status) => async (dispatch) => {
 }
 
 export const updatePhotoThunkCreator = (photo) => async (dispatch) => {
+	dispatch(savePhotoLoading(true))
 	const response = await profileAPI.savePhoto(photo)
-	// if(response) {
-	// 	return <Preloader />
-	// }
-	if (response.data.resultCode === 0) {
+		if (response.data.resultCode === 0) {
+		dispatch(savePhotoLoading(false))
 		dispatch(savePhotoSuccess(response.data.data.photos))
 	}
 }
@@ -136,9 +143,14 @@ export const dataFormThunkCreator = (profile) => async (dispatch, getState) => {
 		dispatch(toggleIsProfileUpdate(true));
 		
 	} else {
+		let key = response.data.messages[0].match(/Contacts->(\w+)/)[1].toLowerCase();
 		dispatch(toggleIsProfileUpdate(false));
-		dispatch(stopSubmit("profileEdit", { _error: response.data.messages[0] }
+		dispatch(stopSubmit('profileEdit', {
+			contacts: {[key]: response.data.messages[0]},}
+		//dispatch(stopSubmit("profileEdit", { _error: response.data.messages[0] }
 			//{"contacts": {"facebook": response.data.messages[0]}}
+			
+
 		))
 
 		return Promise.reject(response.data.messages[0])

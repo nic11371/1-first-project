@@ -16,50 +16,58 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { isAuth, profile, profileStatus, userId } from './ProfileSelectors';
 import { getFollowInProgress, getUsers } from '../Users/usersSelectors';
-import { useEffect } from 'react';
 
-export const ProfileContainer = (props) => {
-	
-	const updateRefreshProfile = () => {
-		let userId = props.match.params.userId;
+class ProfileContainer extends React.Component {
+
+	updateRefreshProfile() {
+		let userId = this.props.match.params.userId;
 		if (!userId) {
-			userId = props.autorizedUserId;
+			userId = this.props.autorizedUserId;
 			if (!userId) {
-				props.history.push("/login")
+				this.props.history.push("/login")
 			}
 		}
-		props.getUsersThunkCreator()
-		props.getProfileThunkCreator(userId);
-		props.getUserStatusThunkCreator(userId);
-		props.users
+		this.props.getUsersThunkCreator()
+		this.props.getProfileThunkCreator(userId);
+		this.props.getUserStatusThunkCreator(userId);
+		this.props.users
 			.map(u => {
 				if (+userId == u.id) {
-					props.userFollowed(u);
-					props.userFollowedGlobal(u)
+					this.props.userFollowed(u);
+					this.props.userFollowedGlobal(u)
 				}
 			});
+			
+
 	}
 
-	useEffect(() => {
-		updateRefreshProfile()
-	})
-	
+	componentDidMount() {
+		this.updateRefreshProfile();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.match.params.userId != this.props.match.params.userId) {
+			this.updateRefreshProfile();
+		}
+	}
+
+	render() {
 		return (
-			<Profile {...props}
-				isOwner={!props.match.params.userId}
-				profile={props.profile} status={props.status}
-				updateStatus={props.updateStatusThunkCreator}
-				followed={props.users.followed}
-				followInProgress={props.followInProgress}
-				followThunkCreator={props.followThunkCreator}
-				unfollowThunkCreator={props.unfollowThunkCreator}
-				userId={props.match.params.userId}
-				users={props.profileFollowed}
-				savePhoto={props.updatePhotoThunkCreator}
-				isPhotoLoading={props.isPhotoLoading}
+			<Profile {...this.props}
+				isOwner={!this.props.match.params.userId}
+				profile={this.props.profile} status={this.props.status}
+				updateStatus={this.props.updateStatusThunkCreator}
+				followed={this.props.users.followed}
+				followInProgress={this.props.followInProgress}
+				followThunkCreator={this.props.followThunkCreator}
+				unfollowThunkCreator={this.props.unfollowThunkCreator}
+				userId={this.props.match.params.userId}
+				users={this.props.profileFollowed}
+				savePhoto={this.props.updatePhotoThunkCreator}
+				isPhotoLoading={this.props.isPhotoLoading}
 			/>
 		)
-	
+	}
 }
 
 const mapStateToProps = (state) => {

@@ -24,7 +24,7 @@ import styles from "../../Common/FormsControls/FormsControls.module.css"
 				{Object.keys(profile.contacts).map(key => {
 				return <div key={key}>
 					 <b>{key}:
-					{createField(key, "contacts." + key , Input, [])}</b>
+					{createField(key, "contacts." + key.toLocaleLowerCase() , Input, [])}</b>
 				</div>})}
 			</div>
 			{error && <div className={styles.formSummaryError}>{error}</div>}
