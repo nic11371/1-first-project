@@ -28,16 +28,18 @@ export const ProfileContainer = (props) => {
 				props.history.push("/login")
 			}
 		}
-		props.getUsersThunkCreator()
+		
+		// props.getUsersThunkCreator()
 		props.getProfileThunkCreator(userId);
 		props.getUserStatusThunkCreator(userId);
-		props.users
-			.map(u => {
-				if (+userId == u.id) {
-					props.userFollowed(u);
-					props.userFollowedGlobal(u)
-				}
-			});
+		//!перебирает всех пользователей из users. нужно исправить и выдавать пользователей порционо
+		// props.users
+		// 	.map(u => {
+		// 		if (+userId == u.id) {
+		// 			props.userFollowed(u);
+		// 			props.userFollowedGlobal(u)
+		// 		}
+		// 	});
 	}
 
 	useEffect(() => {
