@@ -30,4 +30,6 @@ export type UsersArrayType = {
 	status: string
 	photos: PhotosType
 	followed: boolean
+	
 }
+

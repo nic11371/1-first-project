@@ -1,10 +1,26 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./users.module.css";
 import Following from "../Common/Follow/Follow";
 import { UserPhoto } from "../Common/UserPhoto/photo";
 import { NavLink } from "react-router-dom";
+import { UsersArrayType } from "../../Types/types";
 
-const User = React.memo(({ user, followInProgress, unfollowThunkCreator,
+export type PropsType = {
+	user: any
+	followInProgress: Array<number>
+	followThunkCreator: (userId:number) => void
+	unfollowThunkCreator: (userId:number) => void
+	
+}
+
+export type UserArrayType = {
+	name: string
+	id: number
+	photos: string
+	status: string
+}
+
+const User:FC<PropsType> = React.memo(({ user, followInProgress, unfollowThunkCreator,
 	 followThunkCreator, ...props }) => {
 
 	return <div className={classes.Users}>
@@ -14,6 +30,7 @@ const User = React.memo(({ user, followInProgress, unfollowThunkCreator,
 			<div className={classes.userPhoto}>
 			<NavLink to={'/profile/' + user.id}>
 			<UserPhoto photo={user.photos.small}
+			isPhotoLoading={user.photos.isPhotoLoading}
 			user={user} />
 			</NavLink>
 		</div>

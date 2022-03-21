@@ -1,4 +1,14 @@
-const Following = ({ user, userId, followInProgress,
+import { FC } from "react"
+import { UserArrayType } from "../../Users/User"
+
+export type PropsType = {
+	user: any
+	followInProgress: Array<number>
+	followThunkCreator: (userId:number) => void
+	unfollowThunkCreator: (userId:number) => void
+}
+//user:Array<UserArrayType>
+const Following:FC<PropsType> = ({ user, followInProgress,
 	followThunkCreator, unfollowThunkCreator }) => {
 
 	const followInProgressDisabled = () => {

@@ -13,12 +13,12 @@ const TOGGLE_FOLLOW_IN_PROGRESS = "network/users/TOGGLE_FOLLOW_IN_PROGRESS";
 
 const initialState = {
 	users: [] as Array<UsersArrayType>,
-	pageSize: 15 as number | null,
+	pageSize: 15 as number,
 	totalUsersCount: 0 as number | null,
 	currentPage: 1 as number | null,
 	isFetching: false as boolean,
 	followInProgress: [] as Array<number>, //array of users id
-	portionSize: 5 as number | null
+	portionSize: 5 as number
 };
 export type InitialStateType = typeof initialState;
 const usersReducer = (state = initialState, action:any) => {
@@ -80,7 +80,7 @@ export const toggleFollowInProgress = (isFetching: boolean, userId:number):Toggl
  ({ type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userId })
 
 
-export const getUsersThunkCreator = (currentPage:number, pageSize:number) => 
+export const getUsersThunkCreator = (currentPage:number, pageSize:number, portionSize:number) => 
 async (dispatch:any) => {
 	dispatch(toggleIsFetching(true));
 	const response = await usersAPI.getUsers(currentPage, pageSize)

@@ -18,6 +18,9 @@ let reducers = combineReducers({
 	form: formReducer
 });
 
+type RootReducerType = typeof reducers;
+export type AppStateType = ReturnType<RootReducerType>;
+
 // store.subscribe(() => {
 // 	localStorage.setItem('profileFollowed',
 // 	 JSON.stringify([store.getState().profilePage.profileFollowed]));
@@ -27,10 +30,11 @@ let reducers = combineReducers({
 //                        ?  Object.value(JSON.parse(localStorage.getItem('profileFollowed')))
 //                        : []
 
+//@ts-ignore
  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
  const store = createStore(reducers, 
 	composeEnhancers(applyMiddleware(thunkMiddleware)));
 
-
+//@ts-ignore
 window.__store__ = store;
 export default store;
