@@ -8,41 +8,16 @@ import { compose } from "redux";
 import { getCurrentPage,  getFetching, getFollowInProgress,
 	 getPageSize, getPortionSize, getTotalUsersCount, getUsers} from "./usersSelectors";
 import { PureComponent } from "react";
-import { UsersArrayType } from "../../Types/types";
 import Users from "./Users";
-import { AppStateType } from "../../redux/reduxStore";
 
-export type PropsType =  MapStatePropsType & MapDispatchPropsType & TOwnProps
 
-export type MapStatePropsType = {
-	totalUsersCount: number
-	pageSize: number
-	currentPage: number
-	portionSize: number
-	users: Array<UsersArrayType>
-	isFetching:boolean
-	followInProgress: Array<number>
-}
-
-export type MapDispatchPropsType = {
-	followThunkCreator: (userId:any) => void,
-	unfollowThunkCreator: (userId:any) => void,
-	getUsersThunkCreator:(currentPage:any,pageSize:any, portionSize:any ) =>
-	 void
-	setCurrentPage: (pageNumber:number) => void
-}
-
-export type TOwnProps = {
-
-}
-
-class UsersContainer extends PureComponent<PropsType> {
+class UsersContainer extends PureComponent {
 	componentDidMount() {
 		const {currentPage, pageSize, portionSize} = this.props
 		this.props.getUsersThunkCreator(currentPage, pageSize, portionSize)
 	}
 
-	onPageChanged = (pageNumber:number) => {
+	onPageChanged = (pageNumber) => {
 		const {pageSize, portionSize} = this.props;
 		this.props.setCurrentPage(pageNumber);
 		this.props.getUsersThunkCreator(pageNumber, pageSize, portionSize)
@@ -65,7 +40,7 @@ class UsersContainer extends PureComponent<PropsType> {
 	}
 }
 
-const mapStateToProps = (state:AppStateType): MapStatePropsType => {
+const mapStateToProps = (state) => {
 	return {
 		users: getUsers(state),
 		pageSize: getPageSize(state),
@@ -78,7 +53,7 @@ const mapStateToProps = (state:AppStateType): MapStatePropsType => {
 }
 
 export default compose(
-	connect<MapStatePropsType,MapDispatchPropsType, TOwnProps, AppStateType>(mapStateToProps, 
+	connect(mapStateToProps, 
 { getUsersThunkCreator, unfollowThunkCreator, followThunkCreator, setCurrentPage}),
 	withAuthRedirect
 )(UsersContainer)
